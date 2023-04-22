@@ -17,6 +17,10 @@
   import MenuButton from "../../components/Button/MenuButton.svelte";
   import HorizontalStack from "../../components/Stack/HorizontalStack.svelte";
 
+  import RepairIcon from "../../public/images/tools.svg";
+  import ParkingIcon from "../../public/images/parking.svg";
+  import FuelIcon from "../../public/images/fuel.svg";
+
   let txHash: string = "";
 
   async function handleGetAPI() {
@@ -58,7 +62,7 @@
 </script>
 
 <VerticalStack>
-  <Button />
+  <!-- <Button />
   <SignMessageButton />
   {$signature}
   <SignTypedMessageButton />
@@ -66,11 +70,11 @@
   <Button buttonText="GET API" handleClick={handleGetAPI} />
   <Button buttonText="POST API" handleClick={handlePostAPI} />
   <Button buttonText="PAY" handleClick={handlePay} />
-  {txHash}
+  {txHash} -->
   <HorizontalStack>
-    <MenuButton buttonText="Parking" link="/demo/parking" />
-    <MenuButton buttonText="Fuel" link="/demo/fuel" />
-    <MenuButton buttonText="Repair" link="/demo/repair" />
+    <MenuButton buttonText="Parking" link="/demo/parking" icon={ParkingIcon} />
+    <MenuButton buttonText="Fuel" link="/demo/fuel" icon={FuelIcon} />
+    <MenuButton buttonText="Repair" link="/demo/repair" icon={RepairIcon} />
   </HorizontalStack>
 </VerticalStack>
 
