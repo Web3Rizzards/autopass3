@@ -1,0 +1,38 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "contracts/AutopassPaymentGateway.sol": {
+      "content": "// SPDX-License-Identifier: GPL-3.0\r\npragma solidity ^0.8.12;\r\n\r\ncontract AutopassPaymentGateway {\r\n    // Increment every time a payment is received\r\n    uint256 public paymentId = 0;\r\n    address public owner;\r\n\r\n    event PaymentReceived(address indexed sender, uint256 amount, string orderId, uint256 paymentId, bytes data);\r\n\r\n    constructor(address _safe) {\r\n        owner = _safe;\r\n    }\r\n\r\n    // Set owner\r\n    function setOwner(address _safe) public {\r\n        owner = _safe;\r\n    }\r\n\r\n    /**\r\n     * Create a payment\r\n     * @param orderId Order ID\r\n     * @param data Data\r\n     */\r\n    function createPayment(string memory orderId, bytes memory data) public payable {\r\n        paymentId++;\r\n        // Transfer to owner wallet\r\n        payable(owner).transfer(msg.value);\r\n        emit PaymentReceived(msg.sender, msg.value, orderId, paymentId, data);\r\n    }\r\n}\r\n"
+    },
+    "contracts/PaymentSplitter.sol": {
+      "content": "pragma solidity ^0.8.0;\r\n\r\ncontract PaymentSplitter {\r\n    // The `pay` function now only accepts Ether (ETH)\r\n    function pay(address[] calldata recipients, uint256[] calldata amounts) external payable {\r\n        // Ensure that the recipients and amounts arrays have the same length\r\n        require(recipients.length == amounts.length, \"Invalid input: mismatched arrays\");\r\n\r\n        // Calculate the total amount to be transferred\r\n        uint256 totalAmount = 0;\r\n        for (uint256 i = 0; i < amounts.length; i++) {\r\n            totalAmount += amounts[i];\r\n        }\r\n\r\n        // Ensure that the user has sent enough Ether to cover the total amount\r\n        require(msg.value >= totalAmount, \"Insufficient sent value\");\r\n\r\n        // Transfer the specified amounts of Ether to the recipients\r\n        for (uint256 i = 0; i < recipients.length; i++) {\r\n            (bool success, ) = recipients[i].call{ value: amounts[i] }(\"\");\r\n            require(success, \"Transfer failed\");\r\n        }\r\n\r\n        // If the user sent more Ether than the total amount, refund the difference\r\n        uint256 refundAmount = msg.value - totalAmount;\r\n        if (refundAmount > 0) {\r\n            (bool success, ) = msg.sender.call{ value: refundAmount }(\"\");\r\n            require(success, \"Refund failed\");\r\n        }\r\n    }\r\n}\r\n"
+    }
+  },
+  "settings": {
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode",
+          "evm.deployedBytecode",
+          "evm.methodIdentifiers",
+          "metadata",
+          "devdoc",
+          "userdoc",
+          "storageLayout",
+          "evm.gasEstimates"
+        ],
+        "": [
+          "ast"
+        ]
+      }
+    },
+    "metadata": {
+      "useLiteralContent": true
+    }
+  }
+}

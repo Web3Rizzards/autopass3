@@ -210,7 +210,7 @@ module.exports = {
       chainId: 18,
       accounts: ACCOUNT,
       saveDeployments: true,
-      gasPrice: 10000000000000,
+      gasPrice: 100000000000,
     },
   },
   solidity: {
