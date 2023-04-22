@@ -8,8 +8,8 @@ contract AutopassPaymentGateway {
 
     event PaymentReceived(address indexed sender, uint256 amount, string orderId, uint256 paymentId, bytes data);
 
-    constructor() {
-        owner = msg.sender;
+    constructor(address _safe) {
+        owner = _safe;
     }
 
     /**
@@ -19,15 +19,8 @@ contract AutopassPaymentGateway {
      */
     function createPayment(string memory orderId, bytes memory data) public payable {
         paymentId++;
+        // Transfer to owner wallet
+        payable(owner).transfer(msg.value);
         emit PaymentReceived(msg.sender, msg.value, orderId, paymentId, data);
-    }
-
-    /**
-     * Withdraw funds from the contract
-     * @param _to Recipient of the funds
-     */
-    function withdrawFunds(address payable _to) public {
-        require(msg.sender == owner, "Only owner can withdraw funds");
-        _to.transfer(address(this).balance);
     }
 }

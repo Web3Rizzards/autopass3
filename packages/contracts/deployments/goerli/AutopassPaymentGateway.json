@@ -1,0 +1,174 @@
+{
+  "address": "0x33BE10D94bAe2bD9c18e0A5b57597d30df04BE63",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_safe",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "sender",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "orderId",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "paymentId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes",
+          "name": "data",
+          "type": "bytes"
+        }
+      ],
+      "name": "PaymentReceived",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "orderId",
+          "type": "string"
+        },
+        {
+          "internalType": "bytes",
+          "name": "data",
+          "type": "bytes"
+        }
+      ],
+      "name": "createPayment",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "paymentId",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x47e5b08a08ac0a9d04257bdf1ea0a74726073a1d340f3f2fcd64d0ad27b05cc2",
+  "receipt": {
+    "to": null,
+    "from": "0x6860542E55Fb9292e4c8b478FcEec724d3351C2e",
+    "contractAddress": "0x33BE10D94bAe2bD9c18e0A5b57597d30df04BE63",
+    "transactionIndex": 53,
+    "gasUsed": "260473",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x161796eba40cb14bfaad513fc4aa5d16ca19083bd2f0ad319c147bfeb982ea62",
+    "transactionHash": "0x47e5b08a08ac0a9d04257bdf1ea0a74726073a1d340f3f2fcd64d0ad27b05cc2",
+    "logs": [],
+    "blockNumber": 8871391,
+    "cumulativeGasUsed": "8252122",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    "0x50865b07e1635066Aa2278b318B4547C9E721000"
+  ],
+  "numDeployments": 1,
+  "solcInputHash": "d4585660ba7756d525a983a8b7252634",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_safe\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"orderId\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"paymentId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"PaymentReceived\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"orderId\",\"type\":\"string\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"createPayment\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"paymentId\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{\"createPayment(string,bytes)\":{\"params\":{\"data\":\"Data\",\"orderId\":\"Order ID\"}}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"createPayment(string,bytes)\":{\"notice\":\"Create a payment\"}},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/AutopassPaymentGateway.sol\":\"AutopassPaymentGateway\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/AutopassPaymentGateway.sol\":{\"content\":\"// SPDX-License-Identifier: GPL-3.0\\r\\npragma solidity ^0.8.12;\\r\\n\\r\\ncontract AutopassPaymentGateway {\\r\\n    // Increment every time a payment is received\\r\\n    uint256 public paymentId = 0;\\r\\n    address public owner;\\r\\n\\r\\n    event PaymentReceived(address indexed sender, uint256 amount, string orderId, uint256 paymentId, bytes data);\\r\\n\\r\\n    constructor(address _safe) {\\r\\n        owner = _safe;\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * Create a payment\\r\\n     * @param orderId Order ID\\r\\n     * @param data Data\\r\\n     */\\r\\n    function createPayment(string memory orderId, bytes memory data) public payable {\\r\\n        paymentId++;\\r\\n        // Transfer to owner wallet\\r\\n        payable(owner).transfer(msg.value);\\r\\n        emit PaymentReceived(msg.sender, msg.value, orderId, paymentId, data);\\r\\n    }\\r\\n}\\r\\n\",\"keccak256\":\"0x80450a0121e17c34ee996ad6e2b8197c1029f4583cc11a0ceedc8444a76147c5\",\"license\":\"GPL-3.0\"}},\"version\":1}",
+  "bytecode": "0x60806040526000805534801561001457600080fd5b506040516103db3803806103db83398101604081905261003391610058565b600180546001600160a01b0319166001600160a01b0392909216919091179055610088565b60006020828403121561006a57600080fd5b81516001600160a01b038116811461008157600080fd5b9392505050565b610344806100976000396000f3fe6080604052600436106100345760003560e01c806325bd4639146100395780633ed2c1a3146100625780638da5cb5b14610077575b600080fd5b34801561004557600080fd5b5061004f60005481565b6040519081526020015b60405180910390f35b6100756100703660046101d6565b6100af565b005b34801561008357600080fd5b50600154610097906001600160a01b031681565b6040516001600160a01b039091168152602001610059565b6000805490806100be83610265565b90915550506001546040516001600160a01b03909116903480156108fc02916000818181858888f193505050501580156100fc573d6000803e3d6000fd5b50336001600160a01b03167f826d6667028847f16a72c3d9da64a9fbdbfb76832447ca012c4234885924569434846000548560405161013e94939291906102d2565b60405180910390a25050565b634e487b7160e01b600052604160045260246000fd5b600067ffffffffffffffff8084111561017b5761017b61014a565b604051601f8501601f19908116603f011681019082821181831017156101a3576101a361014a565b816040528093508581528686860111156101bc57600080fd5b858560208301376000602087830101525050509392505050565b600080604083850312156101e957600080fd5b823567ffffffffffffffff8082111561020157600080fd5b818501915085601f83011261021557600080fd5b61022486833560208501610160565b9350602085013591508082111561023a57600080fd5b508301601f8101851361024c57600080fd5b61025b85823560208401610160565b9150509250929050565b60006001820161028557634e487b7160e01b600052601160045260246000fd5b5060010190565b6000815180845260005b818110156102b257602081850181015186830182015201610296565b506000602082860101526020601f19601f83011685010191505092915050565b8481526080602082015260006102eb608083018661028c565b8460408401528281036060840152610303818561028c565b97965050505050505056fea2646970667358221220bae08644eabdbaf92cab203e4339da255aa5a567abadaf99f1d29a1b543d36b564736f6c63430008110033",
+  "deployedBytecode": "0x6080604052600436106100345760003560e01c806325bd4639146100395780633ed2c1a3146100625780638da5cb5b14610077575b600080fd5b34801561004557600080fd5b5061004f60005481565b6040519081526020015b60405180910390f35b6100756100703660046101d6565b6100af565b005b34801561008357600080fd5b50600154610097906001600160a01b031681565b6040516001600160a01b039091168152602001610059565b6000805490806100be83610265565b90915550506001546040516001600160a01b03909116903480156108fc02916000818181858888f193505050501580156100fc573d6000803e3d6000fd5b50336001600160a01b03167f826d6667028847f16a72c3d9da64a9fbdbfb76832447ca012c4234885924569434846000548560405161013e94939291906102d2565b60405180910390a25050565b634e487b7160e01b600052604160045260246000fd5b600067ffffffffffffffff8084111561017b5761017b61014a565b604051601f8501601f19908116603f011681019082821181831017156101a3576101a361014a565b816040528093508581528686860111156101bc57600080fd5b858560208301376000602087830101525050509392505050565b600080604083850312156101e957600080fd5b823567ffffffffffffffff8082111561020157600080fd5b818501915085601f83011261021557600080fd5b61022486833560208501610160565b9350602085013591508082111561023a57600080fd5b508301601f8101851361024c57600080fd5b61025b85823560208401610160565b9150509250929050565b60006001820161028557634e487b7160e01b600052601160045260246000fd5b5060010190565b6000815180845260005b818110156102b257602081850181015186830182015201610296565b506000602082860101526020601f19601f83011685010191505092915050565b8481526080602082015260006102eb608083018661028c565b8460408401528281036060840152610303818561028c565b97965050505050505056fea2646970667358221220bae08644eabdbaf92cab203e4339da255aa5a567abadaf99f1d29a1b543d36b564736f6c63430008110033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {
+      "createPayment(string,bytes)": {
+        "params": {
+          "data": "Data",
+          "orderId": "Order ID"
+        }
+      }
+    },
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {
+      "createPayment(string,bytes)": {
+        "notice": "Create a payment"
+      }
+    },
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 1530,
+        "contract": "contracts/AutopassPaymentGateway.sol:AutopassPaymentGateway",
+        "label": "paymentId",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 1532,
+        "contract": "contracts/AutopassPaymentGateway.sol:AutopassPaymentGateway",
+        "label": "owner",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_address"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}
