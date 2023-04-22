@@ -86,13 +86,17 @@
 <BottomNav />
 
 <style>
+  :global(body) {
+    background-color: #fffa00;
+  }
+
   @font-face {
     font-family: "Figtree";
     src: url("../public/fonts/Figtree/Figtree-VariableFont_wght.ttf");
   }
 
   header {
-    background: #ffffff;
+    background: transparent;
     font-family: "Figtree";
     display: flex;
     align-items: center;
@@ -101,7 +105,7 @@
 
   main {
     font-family: "Figtree";
-    background: #ffffff;
+    background: transparent;
     color: #000000;
     border: none;
     display: flex;

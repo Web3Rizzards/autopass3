@@ -1,10 +1,24 @@
 <script lang="ts">
   import VerticalStack from "../../../components/Stack/VerticalStack.svelte";
+  import { currentLanguageSelected } from "../../../stores";
+  import { LanguageEnum } from "../../../types";
+
+  let language: LanguageEnum;
+
+  currentLanguageSelected.subscribe((value) => {
+    language = value;
+  });
+
 </script>
 
 <VerticalStack>
-  <title>Parking</title>
-  <description>Coming Soon...</description>
+  {#if language === LanguageEnum.EN}
+    <title>Parking</title>
+    <description>Coming Soon...</description>
+  {:else}
+    <title>停車場</title>
+    <description>即将推出</description>
+  {/if}
 </VerticalStack>
 
 <style>

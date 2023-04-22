@@ -20,3 +20,8 @@ export interface Payment {
   orderId: string;
   amount: BigNumber;
 }
+
+export enum LanguageEnum {
+  EN = "EN",
+  CN = "CN",
+}

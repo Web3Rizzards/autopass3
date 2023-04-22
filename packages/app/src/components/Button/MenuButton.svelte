@@ -1,5 +1,5 @@
 <script lang="ts">
-  import ParkingIcon from "../../public/images/parking.svg";
+  import ParkingIcon from "../../public/images/parking2.svg";
 
   export let handleClick: () => void = () => {
     console.log("Unassigned Button");
@@ -52,6 +52,7 @@
     border-style: solid;
     border-color: #000000;
     border-radius: 16px;
+    cursor: pointer;
 
     /* Inside auto layout */
   }
@@ -74,5 +75,10 @@
     flex: none;
     order: 0;
     flex-grow: 0;
+  }
+
+  img {
+    height: 150px;
+    width: 150px;
   }
 </style>

@@ -11,6 +11,15 @@
   import { orderDetails, orders } from "../../../stores";
   import { formatEther, parseEther } from "ethers/lib/utils.js";
 
+  import { currentLanguageSelected } from "../../../stores"
+  import { LanguageEnum } from "../../../types";
+
+  let language: LanguageEnum;
+
+  currentLanguageSelected.subscribe((value) => {
+    language = value;
+  });
+
   // Admin Panel Data
   let data = [
     {
@@ -31,6 +40,29 @@
     },
     {
       name: "Cost (XDAI)",
+      value: formatEther($orderDetails.amount),
+    },
+  ];
+
+  let translatedData = [
+    {
+      name: "地點",
+      value: "Victory Gas Station - Pump 02",
+    },
+    {
+      name: "車牌",
+      value: "1435EF",
+    },
+    {
+      name: "公升",
+      value: $orderDetails.fuelAmount,
+    },
+    {
+      name: "費用 (TWD)",
+      value: String(Number(formatEther($orderDetails.amount)) * 30),
+    },
+    {
+      name: "費用 (XDAI)",
       value: formatEther($orderDetails.amount),
     },
   ];
@@ -122,18 +154,36 @@
 
 <subheader>
   <img src={FuelIcon} alt={FuelIcon} />
-  <title>Fuel</title>
+  {#if language === LanguageEnum.EN}
+    <title>Fuel</title> 
+  {:else}
+    <title>打油</title>
+  {/if}
 </subheader>
 <HorizontalStack>
   <VerticalStack>
-    <title class="panel">Admin Panel</title>
-    <DisplayGroup lineInfos={data} />
+    {#if language === LanguageEnum.EN}
+      <title class="panel">Admin Panel</title>
+      <DisplayGroup lineInfos={data} />
+    {:else}
+      <title class="panel">管理面板</title>
+      <DisplayGroup lineInfos={translatedData} />
+    {/if}
     <subtext>1USD = 1XDAI = 30.65 TWD</subtext>
-    <Button buttonText="SIMULATE" {handleClick} />
-    <Button buttonText="SIMULATE PAYMENT" handleClick={handleClick2} />
+    {#if language === LanguageEnum.EN}
+      <Button buttonText="SIMULATE" {handleClick} />
+      <Button buttonText="SIMULATE PAYMENT" handleClick={handleClick2} />
+    {:else}
+      <Button buttonText="模仿" {handleClick} />
+      <Button buttonText="模仿支付" handleClick={handleClick2} />
+    {/if}
   </VerticalStack>
   <VerticalStack>
-    <title class="panel">User Panel</title>
+    {#if language === LanguageEnum.EN}
+      <title class="panel">User Panel</title>
+    {:else}
+      <title class="panel">用戶面板</title>
+    {/if}
     <Notifications />
   </VerticalStack>
 </HorizontalStack>

@@ -10,6 +10,9 @@
     display: flex;
     flex-direction: row;
 
+    align-items: flex-start;
+    justify-content: center;
+    
     width: 100%;
     padding: 1rem;
 

@@ -46,6 +46,7 @@
     border-bottom: 4px solid #d8d200;
     box-shadow: 0px 0px 4px #d8d200;
     border-radius: 10px;
+    cursor: pointer;
 
     /* Inside auto layout */
   }

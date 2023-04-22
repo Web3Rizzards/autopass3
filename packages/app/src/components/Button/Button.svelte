@@ -32,6 +32,7 @@
     border-bottom: 4px solid #000000;
     box-shadow: 0px 0px 4px #000000;
     border-radius: 10px;
+    cursor: pointer;
 
     /* Inside auto layout */
   }

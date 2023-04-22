@@ -22,6 +22,9 @@
     display: flex;
     flex-direction: column;
 
+    background-color: transparent;
+    border-radius: 15px;
+    
     width: 100%;
     gap: 1rem;
   }

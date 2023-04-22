@@ -2,11 +2,26 @@
   import SearchBox from "../components/Input/SearchBox.svelte";
   import VerticalStack from "../components/Stack/VerticalStack.svelte";
   import Table from "../components/Table/Table.svelte";
+
+  import { currentLanguageSelected } from "../stores";
+  import { LanguageEnum } from "../types";
+
+  let language: LanguageEnum;
+
+  currentLanguageSelected.subscribe((value) => {
+    language = value;
+  });
 </script>
 
 <VerticalStack>
-  <title>Title</title>
-  <description>Description</description>
+  {#if language === LanguageEnum.EN}
+    <title>AUTOPASS3</title>
+    <description>Here are some description</description>
+  {:else}
+    <title>車麻吉3</title>
+    <description>車麻吉3是一個平台-車主最愛的智慧懶人錢包
+      帶你行車一路暢通、優惠輕鬆掌控</description>
+  {/if}
   <Table />
 </VerticalStack>
 

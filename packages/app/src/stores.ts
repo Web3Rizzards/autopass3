@@ -1,4 +1,4 @@
-import type { Order, OrderDetails } from "./types";
+import { LanguageEnum, Order, OrderDetails } from "./types";
 import { readable, writable } from "svelte/store";
 
 import type { Client } from "@wagmi/core";
@@ -16,6 +16,8 @@ export const typedSignature = writable<string>("");
 
 export const input = writable<string>("");
 export const orders = writable<Order[]>([]);
+
+export const currentLanguageSelected = writable<LanguageEnum>(LanguageEnum.EN);
 
 export const orderDetails = writable<OrderDetails>({
   location: "Victory Gas Station - Pump 02",

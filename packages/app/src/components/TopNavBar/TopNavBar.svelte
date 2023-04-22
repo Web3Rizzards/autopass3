@@ -2,9 +2,13 @@
   import type { Web3Modal } from "@web3modal/html";
 
   // variables
-  import Logo from "../../public/images/Logo.png";
+  import AutopassLogo from "../../public/images/autopass.svg";
   import { web3Modal } from "../../stores";
   import { breakpoints } from "../../styles/breakpoints";
+
+  import LanguageSelector from "../LanguageSelector/LanguageSelector.svelte";
+  import { currentLanguageSelected } from "../../stores";
+  import { LanguageEnum } from "../../types";
 
   let screenSize: number;
   let modalOpen = false;
@@ -18,6 +22,11 @@
   web3Modal.subscribe((value) => {
     _web3Modal = value;
   });
+
+  let language: LanguageEnum;
+  currentLanguageSelected.subscribe((value) => {
+    language = value;
+  });
 </script>
 
 <svelte:window bind:innerWidth={screenSize} />
@@ -25,26 +34,39 @@
 <header-wrapper>
   {#if screenSize < breakpoints.large}
     <header-logo>
-      <img src={Logo} alt="logo" width="100px" height="100px" />
+      <img src={AutopassLogo} alt="logo" width="100px" height="100px" />
     </header-logo>
   {/if}
   {#if screenSize >= breakpoints.large}
     <header-logo>
-      <img src={Logo} alt="logo" width="100px" height="100px" />
-      <header-icon>PROJECT_NAME</header-icon>
+      <img src={AutopassLogo} alt="logo" width="100px" height="100px" />
+      {#if language === LanguageEnum.EN}
+        <header-icon>AUTOPASS3</header-icon>
+      {:else}
+        <header-icon>車麻吉3</header-icon>
+      {/if}
     </header-logo>
     <header-tabs>
       <header-item>
-        <a href="/">Home</a>
+        {#if language === LanguageEnum.EN}
+          <a href="/">Home</a>
+        {:else}
+          <a href="/">主頁</a>
+        {/if}
       </header-item>
       <header-item>
-        <a href="/demo">Demo</a>
+        {#if language === LanguageEnum.EN}
+          <a href="/demo">Demo</a>
+        {:else}
+          <a href="/demo">示範</a>
+        {/if}
       </header-item>
     </header-tabs>
     {#if _web3Modal}
       <w3m-wrapper>
         <w3m-network-switch style="" />
         <w3m-core-button balance="hide" icon="hide" />
+        <LanguageSelector />
       </w3m-wrapper>
     {/if}
   {/if}

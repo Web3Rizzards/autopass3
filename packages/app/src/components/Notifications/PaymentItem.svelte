@@ -74,6 +74,8 @@
     border-color: #000000;
     border-radius: 16px;
 
+    background-color: #ffffff;
+    
     /* add fade animation */
     animation: fadeInAnimation 0.5s ease-in-out;
   }

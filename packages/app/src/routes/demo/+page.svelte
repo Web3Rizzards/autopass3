@@ -4,9 +4,18 @@
   import MenuButton from "../../components/Button/MenuButton.svelte";
   import HorizontalStack from "../../components/Stack/HorizontalStack.svelte";
 
-  import RepairIcon from "../../public/images/tools.svg";
-  import ParkingIcon from "../../public/images/parking.svg";
-  import FuelIcon from "../../public/images/fuel.svg";
+  import RepairIcon from "../../public/images/repair.svg";
+  import ParkingIcon from "../../public/images/parking2.svg";
+  import FuelIcon from "../../public/images/gas.svg";
+
+  import { currentLanguageSelected } from "../../stores";
+  import { LanguageEnum } from "../../types";
+
+  let language: LanguageEnum;
+
+  currentLanguageSelected.subscribe((value) => {
+    language = value;
+  });
 </script>
 
 <VerticalStack>
@@ -20,9 +29,15 @@
   <Button buttonText="PAY" handleClick={handlePay} />
   {txHash} -->
   <HorizontalStack>
-    <MenuButton buttonText="Parking" link="/demo/parking" icon={ParkingIcon} />
-    <MenuButton buttonText="Fuel" link="/demo/fuel" icon={FuelIcon} />
-    <MenuButton buttonText="Repair" link="/demo/repair" icon={RepairIcon} />
+    {#if language === LanguageEnum.EN}
+      <MenuButton buttonText="Parking" link="/demo/parking" icon={ParkingIcon} />
+      <MenuButton buttonText="Fuel" link="/demo/fuel" icon={FuelIcon} />
+      <MenuButton buttonText="Repair" link="/demo/repair" icon={RepairIcon} />
+    {:else}
+      <MenuButton buttonText="停車場" link="/demo/parking" icon={ParkingIcon} />
+      <MenuButton buttonText="打油" link="/demo/fuel" icon={FuelIcon} />
+      <MenuButton buttonText="修理" link="/demo/repair" icon={RepairIcon} />
+    {/if}
   </HorizontalStack>
 </VerticalStack>
 
