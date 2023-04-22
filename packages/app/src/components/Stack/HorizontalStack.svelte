@@ -9,10 +9,9 @@
   container {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
 
     width: 100%;
+    padding: 1rem;
     margin: 1rem;
 
     gap: 1rem;

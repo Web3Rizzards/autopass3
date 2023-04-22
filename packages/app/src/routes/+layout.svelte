@@ -19,9 +19,6 @@
       console.log("Client is ready");
 
       // Only Start Listening WHen Client is Ready
-
-      // This subscriber imitates a blockchain indexer
-      // In production, we will deploy a more robust indexer using The Graph
       watchAutopassPaymentGatewayEvent(
         { eventName: "PaymentReceived" },
         (sender, amount, orderId, paymentId, data) => {

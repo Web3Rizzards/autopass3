@@ -1,24 +1,16 @@
+import type { Order, Payment } from "../../types";
+
 /**
  * Mock Database
  */
 const database = new Map();
 
-interface Order {
-  orderId?: string;
-  item: string;
-  amount: string;
-  amountReceived?: number;
-  completed?: boolean;
-}
-
-interface Payment {
-  paymentId: string;
-  orderId: string;
-  amount: string;
-}
-
-export function getOrder(orderId: string): Order {
+export function getOrder(orderId: string) {
   return database.get(orderId).values();
+}
+
+export function getOrders() {
+  return database.get("orders");
 }
 
 export function createOrder(data: Order) {
@@ -33,13 +25,12 @@ export function createOrder(data: Order) {
     orders.set(id, {
       id,
       item: data.item,
-      amount: data.amount,
       amountReceived: 0,
       completed: false,
     });
   }
 
-  return database;
+  return id;
 }
 
 export function createPayment(data: Payment): string {

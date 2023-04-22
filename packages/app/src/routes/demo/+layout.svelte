@@ -12,7 +12,7 @@
     autopassPaymentGatewayAddress,
     prepareWriteAutopassPaymentGateway,
   } from "../../generated";
-  import { BigNumber, ethers } from "ethers";
+  import { ethers } from "ethers";
   import { parseEther } from "ethers/lib/utils.js";
   import MenuButton from "../../components/Button/MenuButton.svelte";
   import HorizontalStack from "../../components/Stack/HorizontalStack.svelte";
@@ -37,12 +37,8 @@
   async function handlePostAPI() {
     console.log("POST API");
     let data: Order = {
-      item: {
-        location: "POPOP Taipei",
-        fuelAmount: "80",
-        amount: BigNumber.from("90"),
-      },
-      amountReceived: BigNumber.from("0"),
+      item: "Apple",
+      amount: "1",
     };
     const response = await fetch("/api/order", {
       method: "POST",
@@ -66,20 +62,7 @@
 </script>
 
 <VerticalStack>
-  <!-- <Button />
-  <SignMessageButton />
-  {$signature}
-  <SignTypedMessageButton />
-  {$typedSignature}
-  <Button buttonText="GET API" handleClick={handleGetAPI} />
-  <Button buttonText="POST API" handleClick={handlePostAPI} />
-  <Button buttonText="PAY" handleClick={handlePay} />
-  {txHash} -->
-  <HorizontalStack>
-    <MenuButton buttonText="Parking" link="/demo/parking" icon={ParkingIcon} />
-    <MenuButton buttonText="Fuel" link="/demo/fuel" icon={FuelIcon} />
-    <MenuButton buttonText="Repair" link="/demo/repair" icon={RepairIcon} />
-  </HorizontalStack>
+  <slot />
 </VerticalStack>
 
 <style>

@@ -1,5 +1,6 @@
 import { json, type RequestHandler } from "@sveltejs/kit";
-import { createOrder } from "../../../lib/server/database";
+import { createOrder, getOrders } from "../../../lib/server/database";
+import type { Order } from "../../../types";
 
 const toObject = (map = new Map()): any =>
   Object.fromEntries(
@@ -7,19 +8,15 @@ const toObject = (map = new Map()): any =>
   );
 
 export const GET: RequestHandler = async () => {
-  // const response = await fetch("https://jsonplaceholder.typicode.com/photos/1");
-  // const photos = await response.json();
-
-  const response = createOrder({ item: "a", amount: "1" });
+  const response = getOrders();
   const obj = toObject(response);
-  console.log(obj);
 
   return json(obj);
 };
 
-export const POST: RequestHandler = async () => {
-  const response = await fetch("https://jsonplaceholder.typicode.com/photos");
-  const photos = await response.json();
+export const POST: RequestHandler = async ({ request }) => {
+  const body: Order = await request.json();
+  const response = createOrder(body);
 
-  return json(photos);
+  return json(response);
 };

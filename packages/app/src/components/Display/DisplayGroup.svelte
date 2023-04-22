@@ -1,19 +1,30 @@
 <script lang="ts">
+  import DisplayLine from "./DisplayLine.svelte";
+
   interface LineInfo {
     name: string;
     value: string;
   }
-  export let lineInfo: LineInfo = {
-    name: "Name",
-    value: "Value",
-  };
+  export let lineInfos: LineInfo[] = [
+    {
+      name: "Name",
+      value: "Value",
+    },
+    {
+      name: "Name2",
+      value: "Value2",
+    },
+    {
+      name: "Name3",
+      value: "Value3",
+    },
+  ];
 </script>
 
 <container>
-  <info-name>{lineInfo.name}:</info-name>
-  <info-value-bg>
-    <info-value>{lineInfo.value}</info-value>
-  </info-value-bg>
+  {#each lineInfos as lineInfo}
+    <DisplayLine {lineInfo} />
+  {/each}
 </container>
 
 <style>
@@ -27,12 +38,15 @@
   }
   container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: flex-start;
+    flex: none;
     width: 100%;
+    order: 0;
+    flex-grow: 0;
   }
   info-name {
-    width: 160px;
+    width: auto;
     height: 21px;
 
     font-family: "Poppins";
@@ -45,12 +59,18 @@
     align-items: center;
 
     color: #000000;
+
+    flex: none;
+    order: 0;
+    flex-grow: 1;
   }
   info-value-bg {
     display: flex;
     flex-direction: row;
     align-items: center;
+    padding: 0px;
     overflow-x: scroll;
+    gap: 10px;
 
     width: 100%;
     height: 21px;
@@ -73,6 +93,7 @@
     align-items: center;
 
     color: #ffffff;
+    width: 100%;
     animation: fadeInAnimation 0.5s ease-in-out;
   }
 </style>

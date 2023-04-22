@@ -1,9 +1,16 @@
+import type { BigNumber } from "ethers";
+
 export interface Order {
   orderId?: string;
-  item: string;
-  amount: string;
-  amountReceived?: number;
+  item: OrderDetails;
+  amountReceived?: BigNumber;
   completed?: boolean;
+}
+
+export interface OrderDetails {
+  location: string;
+  fuelAmount: string;
+  amount: BigNumber; // in XDAI
 }
 
 export interface Payment {

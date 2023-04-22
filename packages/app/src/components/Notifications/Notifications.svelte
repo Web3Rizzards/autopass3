@@ -1,8 +1,12 @@
 <script lang="ts">
+  import type { Order } from "../../types";
+  import PaymentItem from "./PaymentItem.svelte";
+
+  export let orders: Order[];
 </script>
 
 <container>
-  <slot />
+  <PaymentItem />
 </container>
 
 <style>
@@ -12,9 +16,5 @@
 
     width: 100%;
     gap: 1rem;
-    padding: 1rem;
-    margin: 1rem;
-
-    word-break: break-all;
   }
 </style>
