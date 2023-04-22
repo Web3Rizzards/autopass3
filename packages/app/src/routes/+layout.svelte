@@ -15,10 +15,16 @@
   import type { Payment } from "../types";
   import { parseEther } from "ethers/lib/utils.js";
   import { orders } from "../stores";
+
+  import { getNetwork } from "@wagmi/core";
+
   // Listen for PaymentReceived Events
   wagmiClient.subscribe((client) => {
     if (client) {
       console.log("Client is ready");
+      let { chain, chains } = getNetwork();
+      console.log("🚀 | wagmiClient.subscribe | chains:", chains);
+      console.log("🚀 | wagmiClient.subscribe | chain:", chain);
 
       // Only Start Listening WHen Client is Ready
       watchAutopassPaymentGatewayEvent(

@@ -1,11 +1,11 @@
 <script lang="ts">
   // Create a Table component
   export let data = [
-    { name: "Thundercore (Testnet)", faucet: "https://faucet-testnet.thundercore.com/" },
-    { name: "Gnosis (Testnet)", faucet: "https://gnosisfaucet.com/" },
-    { name: "Mantle (Testnet)", faucet: "https://faucet.testnet.mantle.xyz/" },
-    { name: "Mumbai (Testnet)", faucet: "https://mumbaifaucet.com/" },
-    { name: "Sepolia (Testnet)", faucet: "https://sepoliafaucet.com/" },
+    { chain: "Gnosis (Testnet)", faucet: "https://gnosisfaucet.com/" },
+    { chain: "Thundercore (Testnet)", faucet: "https://faucet-testnet.thundercore.com/" },
+    { chain: "Mantle (Testnet)", faucet: "https://faucet.testnet.mantle.xyz/" },
+    { chain: "Mumbai (Testnet)", faucet: "https://mumbaifaucet.com/" },
+    { chain: "Sepolia (Testnet)", faucet: "https://sepoliafaucet.com/" },
   ];
   export let header = Object.keys(data[0]); // Defaults to keys of the 0th element
 </script>
@@ -22,7 +22,7 @@
     <tbody>
       {#each data as row}
         <tr>
-          <td>{row.name}</td>
+          <td>{row.chain}</td>
           <td><a href={row.faucet}>{row.faucet}</a></td>
         </tr>
       {/each}

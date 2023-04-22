@@ -16,11 +16,10 @@
 <VerticalStack>
   {#if language === LanguageEnum.EN}
     <title>AUTOPASS3</title>
-    <description>Here are some description</description>
+    <description>Enabling cryptocurrency payments for AUTOPASS</description>
   {:else}
     <title>車麻吉3</title>
-    <description>車麻吉3是一個平台-車主最愛的智慧懶人錢包
-      帶你行車一路暢通、優惠輕鬆掌控</description>
+    <description>為車麻吉啟用加密貨幣支付</description>
   {/if}
   <Table />
 </VerticalStack>
