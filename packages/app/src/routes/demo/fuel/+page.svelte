@@ -6,7 +6,7 @@
   import HorizontalStack from "../../../components/Stack/HorizontalStack.svelte";
   import VerticalStack from "../../../components/Stack/VerticalStack.svelte";
   import FuelIcon from "../../../public/images/fuel.svg";
-  import type { Order } from "../../../types";
+  import type { Order, Payment } from "../../../types";
   import { BigNumber } from "ethers";
   import { orderDetails, orders } from "../../../stores";
   import { formatEther, parseEther } from "ethers/lib/utils.js";
@@ -67,6 +67,7 @@
         amount: _orderDetails.amount,
       },
     };
+    console.log("🚀 | handleClick | data:", data);
     const response = await fetch("/api/order", {
       method: "POST",
       body: JSON.stringify(data),
@@ -83,6 +84,37 @@
       },
     });
     let _orders = await getResponse.json();
+    console.log("🚀 | handleClick | _orders:", _orders);
+    let _ordersKeys = Object.keys(_orders);
+    $orders = _ordersKeys.map((key) => _orders[key]);
+  }
+
+  async function handleClick2() {
+    console.log("POST API");
+    let data: Payment = {
+      userAddress: "0x",
+      orderId: "dcdd1f62-9ffe-4ace-9ab9-05d26de62024",
+      amount: parseEther("0.1"),
+    };
+    const response = await fetch("/api/payment", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+
+    let json = await response.json();
+    console.log("🚀 | handleClick | json:", json);
+
+    const getResponse = await fetch("/api/order", {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+    let _orders = await getResponse.json();
+    console.log("🚀 | handleClick | _orders:", _orders);
     let _ordersKeys = Object.keys(_orders);
     $orders = _ordersKeys.map((key) => _orders[key]);
   }
@@ -98,6 +130,7 @@
     <DisplayGroup lineInfos={data} />
     <subtext>1USD = 1XDAI = 30.65 TWD</subtext>
     <Button buttonText="SIMULATE" {handleClick} />
+    <Button buttonText="SIMULATE PAYMENT" handleClick={handleClick2} />
   </VerticalStack>
   <VerticalStack>
     <title class="panel">User Panel</title>

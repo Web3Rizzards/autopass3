@@ -3,6 +3,7 @@
   import { orders } from "../../stores";
   import PaymentItem from "./PaymentItem.svelte";
   let _orders: Order[];
+
   orders.subscribe((value) => {
     _orders = value;
   });

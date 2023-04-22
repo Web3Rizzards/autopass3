@@ -1,25 +1,28 @@
 <script lang="ts">
   import CoinIcon from "../../public/images/coin.svg";
-  let state = "default";
   export let handleClick: () => void = async () => {
     console.log("Unassigned Button");
   };
   export let buttonText = "INSERT_TEXT";
+  export let state = "Pending";
+
+  if (state === "Completed") {
+    buttonText = "Payment Complete";
+  }
 
   async function _handleClick() {
-    if (state === "default") {
+    if (state === "Pending") {
       console.log("PAY");
       state = "loading";
       buttonText = "Processing...";
       await handleClick();
-      state = "completed";
-      buttonText = "Payment Complete!";
+      buttonText = "Payment Complete";
     }
   }
 </script>
 
 <button class={state} on:click={_handleClick}>
-  {#if state === "default"}
+  {#if state === "Pending"}
     <img src={CoinIcon} alt={CoinIcon} />
   {/if}
   <button-text class={state}>{buttonText}</button-text>
@@ -55,7 +58,7 @@
     box-shadow: none;
   }
 
-  button.completed {
+  button.Completed {
     background: #9a9a9a;
     border-bottom: 4px solid #9a9a9a;
     border-radius: 10px;
@@ -77,6 +80,6 @@
   }
   button-text.loading {
   }
-  button-text.completed {
+  button-text.Completed {
   }
 </style>

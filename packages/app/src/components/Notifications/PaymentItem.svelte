@@ -5,14 +5,18 @@
   import { formatEther, parseEther } from "ethers/lib/utils.js";
   import { writeContract } from "@wagmi/core";
   import type { Order } from "../../types";
+  import { BigNumber } from "ethers";
 
   export let order: Order;
   let orderId = order.orderId;
   let location = order.item.location;
   let fuelAmount = order.item.fuelAmount;
-  let xDAIAmount = formatEther(order.item.amount);
-
-  let state = "ready";
+  let xDAIAmount: string = formatEther(order.item.amount);
+  console.log("🚀 | xDAIAmount:", xDAIAmount);
+  let XDAIPaid: string = formatEther(order.amountReceived || 0);
+  console.log("🚀 | XDAIPaid:", XDAIPaid);
+  let XDAItoPay: string = String(Number(xDAIAmount) - Number(XDAIPaid));
+  $: state = order.completed ? "Completed" : "Pending";
 
   async function handleClick() {
     console.log(orderId);
@@ -20,7 +24,7 @@
       let config = await prepareWriteAutopassPaymentGateway({
         functionName: "createPayment",
         args: [orderId, "0x"],
-        overrides: { value: parseEther(xDAIAmount) },
+        overrides: { value: parseEther(XDAItoPay) },
       });
       let tx = await writeContract(config);
     }
@@ -36,7 +40,7 @@
     </info-text>
   </info>
   <div>
-    <PayButton buttonText={`Pay ${Number(xDAIAmount).toFixed(2)} XDAI`} {handleClick} />
+    <PayButton buttonText={`Pay ${Number(XDAItoPay).toFixed(2)} XDAI`} {handleClick} {state} />
   </div>
 </container>
 

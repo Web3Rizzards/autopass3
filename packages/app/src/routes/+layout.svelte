@@ -12,7 +12,9 @@
 
   import { watchAutopassPaymentGatewayEvent } from "../generated";
   import { wagmiClient } from "../stores";
-
+  import type { Payment } from "../types";
+  import { parseEther } from "ethers/lib/utils.js";
+  import { orders } from "../stores";
   // Listen for PaymentReceived Events
   wagmiClient.subscribe((client) => {
     if (client) {
@@ -21,7 +23,7 @@
       // Only Start Listening WHen Client is Ready
       watchAutopassPaymentGatewayEvent(
         { eventName: "PaymentReceived" },
-        (sender, amount, orderId, paymentId, data) => {
+        async (sender, amount, orderId, paymentId, data) => {
           console.log({
             sender,
             amount: amount.toString(),
@@ -32,8 +34,30 @@
 
           // Update backend
           // POST api/payment
+          let payment: Payment = {
+            userAddress: sender,
+            orderId: orderId,
+            amount: amount,
+          };
+          const response = await fetch("/api/payment", {
+            method: "POST",
+            body: JSON.stringify(payment),
+            headers: {
+              "content-type": "application/json",
+            },
+          });
 
           // get orders and update store
+          const getResponse = await fetch("/api/order", {
+            method: "GET",
+            headers: {
+              "content-type": "application/json",
+            },
+          });
+          let _orders = await getResponse.json();
+          console.log("🚀 | handleClick | _orders:", _orders);
+          let _ordersKeys = Object.keys(_orders);
+          $orders = _ordersKeys.map((key) => _orders[key]);
         }
       );
     }

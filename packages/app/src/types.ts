@@ -15,7 +15,8 @@ export interface OrderDetails {
 }
 
 export interface Payment {
-  paymentId: string;
+  paymentId?: string;
+  userAddress: string;
   orderId: string;
-  amount: string;
+  amount: BigNumber;
 }
