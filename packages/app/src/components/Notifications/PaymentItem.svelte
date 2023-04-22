@@ -32,15 +32,23 @@
     <img src={FuelIcon} alt={FuelIcon} />
     <info-text>
       <location-text>{location}</location-text>
-      <amount-text>{fuelAmount}</amount-text>
+      <amount-text>{Number(fuelAmount).toFixed(2)} L</amount-text>
     </info-text>
   </info>
   <div>
-    <PayButton buttonText={`Pay ${xDAIAmount} XDAI`} {handleClick} />
+    <PayButton buttonText={`Pay ${Number(xDAIAmount).toFixed(2)} XDAI`} {handleClick} />
   </div>
 </container>
 
 <style lang="scss">
+  @keyframes fadeInAnimation {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
   img {
     width: 40px;
     height: 40px;
@@ -61,6 +69,9 @@
     border-style: solid;
     border-color: #000000;
     border-radius: 16px;
+
+    /* add fade animation */
+    animation: fadeInAnimation 0.5s ease-in-out;
   }
 
   info {

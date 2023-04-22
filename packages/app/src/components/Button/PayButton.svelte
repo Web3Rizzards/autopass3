@@ -7,17 +7,21 @@
   export let buttonText = "INSERT_TEXT";
 
   async function _handleClick() {
-    console.log("PAY");
-    state = "loading";
-    buttonText = "Processing...";
-    await handleClick();
-    state = "completed";
-    buttonText = "Payment Complete!";
+    if (state === "default") {
+      console.log("PAY");
+      state = "loading";
+      buttonText = "Processing...";
+      await handleClick();
+      state = "completed";
+      buttonText = "Payment Complete!";
+    }
   }
 </script>
 
 <button class={state} on:click={_handleClick}>
-  <img src={CoinIcon} alt={CoinIcon} />
+  {#if state === "default"}
+    <img src={CoinIcon} alt={CoinIcon} />
+  {/if}
   <button-text class={state}>{buttonText}</button-text>
 </button>
 

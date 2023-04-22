@@ -1,19 +1,33 @@
 <script lang="ts">
+  import { parseEther } from "ethers/lib/utils.js";
+  import { orderDetails } from "../../stores";
+
   interface LineInfo {
     name: string;
     value: string;
   }
   export let lineInfo: LineInfo = {
     name: "Name",
-    value: "Value",
+    value: "0",
   };
+
+  export let key: "fuelAmount" = "fuelAmount";
+
+  function handleChange() {
+    if (key === "fuelAmount") {
+      $orderDetails.fuelAmount = lineInfo.value;
+      $orderDetails.amount = parseEther((Number(lineInfo.value) * 0.883).toString());
+      console.log("asd");
+    }
+  }
 </script>
 
 <container>
   <info-name>{lineInfo.name}:</info-name>
-  <info-value-bg>
+  <input type="number" bind:value={lineInfo.value} on:input={handleChange} />
+  <!-- <info-value-bg>
     <info-value>{lineInfo.value}</info-value>
-  </info-value-bg>
+  </info-value-bg> -->
 </container>
 
 <style>
@@ -55,7 +69,7 @@
     width: 100%;
     height: 21px;
 
-    background: grey;
+    background: #000000;
   }
 
   info-value-bg::-webkit-scrollbar {
@@ -74,5 +88,31 @@
 
     color: #ffffff;
     animation: fadeInAnimation 0.5s ease-in-out;
+  }
+
+  input {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    overflow-x: scroll;
+    outline: none;
+
+    width: 100%;
+    height: 100%;
+
+    background: #000000;
+    font-family: "Courier Prime";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1rem;
+
+    display: flex;
+    align-items: center;
+
+    color: #ffffff;
+    animation: fadeInAnimation 0.5s ease-in-out;
+    border: none;
+    appearance: none;
+    padding: 0px;
   }
 </style>

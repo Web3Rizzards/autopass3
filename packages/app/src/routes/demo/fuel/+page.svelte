@@ -8,28 +8,40 @@
   import FuelIcon from "../../../public/images/fuel.svg";
   import type { Order } from "../../../types";
   import { BigNumber } from "ethers";
-  import { orders } from "../../../stores";
-  import { parseEther } from "ethers/lib/utils.js";
+  import { orderDetails, orders } from "../../../stores";
+  import { formatEther, parseEther } from "ethers/lib/utils.js";
 
   // Admin Panel Data
   let data = [
     {
       name: "Location",
-      value: "POPOP Taipei Gas Station",
+      value: "Victory Gas Station - Pump 02",
+    },
+    {
+      name: "License",
+      value: "1435EF",
     },
     {
       name: "Fuel Added",
-      value: "80 L",
+      value: $orderDetails.fuelAmount,
     },
     {
       name: "Cost (TWD)",
-      value: "2480 TWD",
+      value: String(Number(formatEther($orderDetails.amount)) * 30),
     },
     {
       name: "Cost (XDAI)",
-      value: "80.91 XDAI",
+      value: formatEther($orderDetails.amount),
     },
   ];
+
+  orderDetails.subscribe((value) => {
+    data[2].value = value.fuelAmount;
+    data[3].value = String(Number(formatEther(value.amount)) * 30);
+    data[4].value = formatEther(value.amount);
+  });
+
+  let _orderDetails = $orderDetails;
   // let orders: Order[];
 
   onMount(async () => {
@@ -49,9 +61,10 @@
     console.log("POST API");
     let data: Order = {
       item: {
-        location: "POPOP Taipei",
-        fuelAmount: "80",
-        amount: parseEther("80.91"),
+        location: _orderDetails.location,
+        licensePlate: _orderDetails.licensePlate,
+        fuelAmount: _orderDetails.fuelAmount,
+        amount: _orderDetails.amount,
       },
     };
     const response = await fetch("/api/order", {
@@ -69,8 +82,9 @@
         "content-type": "application/json",
       },
     });
-    console.log(await getResponse.json());
-    // $orders = await getResponse.json();
+    let _orders = await getResponse.json();
+    let _ordersKeys = Object.keys(_orders);
+    $orders = _ordersKeys.map((key) => _orders[key]);
   }
 </script>
 

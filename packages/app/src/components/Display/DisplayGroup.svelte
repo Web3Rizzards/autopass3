@@ -1,5 +1,7 @@
 <script lang="ts">
   import DisplayLine from "./DisplayLine.svelte";
+  import DisplayLineNumberInput from "./DisplayLineNumberInput.svelte";
+  import DisplayLineTextInput from "./DisplayLineTextInput.svelte";
 
   interface LineInfo {
     name: string;
@@ -22,9 +24,11 @@
 </script>
 
 <container>
-  {#each lineInfos as lineInfo}
-    <DisplayLine {lineInfo} />
-  {/each}
+  <DisplayLineTextInput lineInfo={lineInfos[0]} key="location" />
+  <DisplayLineTextInput lineInfo={lineInfos[1]} key="licensePlate" />
+  <DisplayLineNumberInput lineInfo={lineInfos[2]} key="fuelAmount" />
+  <DisplayLine lineInfo={lineInfos[3]} />
+  <DisplayLine lineInfo={lineInfos[4]} />
 </container>
 
 <style>

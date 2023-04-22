@@ -1,18 +1,17 @@
 <script lang="ts">
 </script>
 
-<container>
+<horizontal-stack>
   <slot />
-</container>
+</horizontal-stack>
 
 <style>
-  container {
+  horizontal-stack {
     display: flex;
     flex-direction: row;
 
     width: 100%;
     padding: 1rem;
-    margin: 1rem;
 
     gap: 1rem;
     word-break: break-all;

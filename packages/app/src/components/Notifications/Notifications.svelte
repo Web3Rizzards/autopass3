@@ -2,11 +2,15 @@
   import type { Order } from "../../types";
   import { orders } from "../../stores";
   import PaymentItem from "./PaymentItem.svelte";
+  let _orders: Order[];
+  orders.subscribe((value) => {
+    _orders = value;
+  });
 </script>
 
 <container>
-  {#if $orders}
-    {#each $orders as order}
+  {#if _orders}
+    {#each _orders as order}
       <PaymentItem {order} />
     {/each}
   {/if}

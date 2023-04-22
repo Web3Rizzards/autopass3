@@ -9,6 +9,7 @@ export interface Order {
 
 export interface OrderDetails {
   location: string;
+  licensePlate: string;
   fuelAmount: string;
   amount: BigNumber; // in XDAI
 }
