@@ -2,24 +2,28 @@
   import PayButton from "../Button/PayButton.svelte";
   import FuelIcon from "../../public/images/fuel.svg";
   import { prepareWriteAutopassPaymentGateway } from "../../generated";
-  import { parseEther } from "ethers/lib/utils.js";
+  import { formatEther, parseEther } from "ethers/lib/utils.js";
   import { writeContract } from "@wagmi/core";
+  import type { Order } from "../../types";
 
-  export let orderId = "123";
-  export let location = "Taipei 101";
-  export let fuelAmount = "100 L";
-  export let xDAIAmount = "100";
+  export let order: Order;
+  let orderId = order.orderId;
+  let location = order.item.location;
+  let fuelAmount = order.item.fuelAmount;
+  let xDAIAmount = formatEther(order.item.amount);
 
   let state = "ready";
 
   async function handleClick() {
     console.log(orderId);
-    let config = await prepareWriteAutopassPaymentGateway({
-      functionName: "createPayment",
-      args: [orderId, "0x"],
-      overrides: { value: parseEther("100") },
-    });
-    let tx = await writeContract(config);
+    if (orderId) {
+      let config = await prepareWriteAutopassPaymentGateway({
+        functionName: "createPayment",
+        args: [orderId, "0x"],
+        overrides: { value: parseEther(xDAIAmount) },
+      });
+      let tx = await writeContract(config);
+    }
   }
 </script>
 

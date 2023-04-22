@@ -1,5 +1,5 @@
 <script lang="ts">
-  export let handleClick: () => void = () => {
+  export let handleClick: () => void = async () => {
     console.log("Unassigned Button");
   };
   export let buttonText = "INSERT_TEXT";

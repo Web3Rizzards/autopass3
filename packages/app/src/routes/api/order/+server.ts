@@ -9,6 +9,7 @@ const toObject = (map = new Map()): any =>
 
 export const GET: RequestHandler = async () => {
   const response = getOrders();
+  console.log("🚀 | constGET:RequestHandler= | response:", response);
   const obj = toObject(response);
 
   return json(obj);

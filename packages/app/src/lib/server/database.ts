@@ -19,11 +19,12 @@ export function createOrder(data: Order) {
   }
 
   const orders = database.get("orders");
+  console.log("🚀 | createOrder | orders:", orders);
   const id = crypto.randomUUID();
 
   if (!orders.has(id)) {
     orders.set(id, {
-      id,
+      orderId: id,
       item: data.item,
       amountReceived: 0,
       completed: false,

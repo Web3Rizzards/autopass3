@@ -1,12 +1,15 @@
 <script lang="ts">
   import type { Order } from "../../types";
+  import { orders } from "../../stores";
   import PaymentItem from "./PaymentItem.svelte";
-
-  export let orders: Order[];
 </script>
 
 <container>
-  <PaymentItem />
+  {#if $orders}
+    {#each $orders as order}
+      <PaymentItem {order} />
+    {/each}
+  {/if}
 </container>
 
 <style>

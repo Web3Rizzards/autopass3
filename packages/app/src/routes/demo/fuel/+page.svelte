@@ -7,7 +7,11 @@
   import VerticalStack from "../../../components/Stack/VerticalStack.svelte";
   import FuelIcon from "../../../public/images/fuel.svg";
   import type { Order } from "../../../types";
+  import { BigNumber } from "ethers";
+  import { orders } from "../../../stores";
+  import { parseEther } from "ethers/lib/utils.js";
 
+  // Admin Panel Data
   let data = [
     {
       name: "Location",
@@ -26,7 +30,7 @@
       value: "80.91 XDAI",
     },
   ];
-  let orders: Order[] = [];
+  // let orders: Order[];
 
   onMount(async () => {
     let response = await fetch("/api/order", {
@@ -36,11 +40,37 @@
       },
     });
 
-    orders = await response.json();
+    let _orders = await response.json();
+    let _ordersKeys = Object.keys(_orders);
+    $orders = _ordersKeys.map((key) => _orders[key]);
   });
 
   async function handleClick() {
-    console.log("SIMULATE");
+    console.log("POST API");
+    let data: Order = {
+      item: {
+        location: "POPOP Taipei",
+        fuelAmount: "80",
+        amount: parseEther("80.91"),
+      },
+    };
+    const response = await fetch("/api/order", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+    console.log("🚀 | handleClick | response:", response);
+
+    const getResponse = await fetch("/api/order", {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+    console.log(await getResponse.json());
+    // $orders = await getResponse.json();
   }
 </script>
 
@@ -57,7 +87,7 @@
   </VerticalStack>
   <VerticalStack>
     <title class="panel">User Panel</title>
-    <Notifications {orders} />
+    <Notifications />
   </VerticalStack>
 </HorizontalStack>
 

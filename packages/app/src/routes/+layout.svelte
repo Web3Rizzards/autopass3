@@ -29,6 +29,11 @@
             paymentId: paymentId.toString(),
             data,
           });
+
+          // Update backend
+          // POST api/payment
+
+          // get orders and update store
         }
       );
     }
