@@ -12,6 +12,12 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }: any) => {
     log: true,
     args: [safe],
   });
+
+  let paymentSplitter = await deploy('PaymentSplitter', {
+    from: deployer,
+    log: true,
+    args: [],
+  });
 };
 
 module.exports.tags = ['Autopass'];

@@ -12,6 +12,11 @@ contract AutopassPaymentGateway {
         owner = _safe;
     }
 
+    // Set owner
+    function setOwner(address _safe) public {
+        owner = _safe;
+    }
+
     /**
      * Create a payment
      * @param orderId Order ID
