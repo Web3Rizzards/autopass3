@@ -10,25 +10,23 @@
 
   import { currentLanguageSelected } from "../../stores";
   import { LanguageEnum } from "../../types";
+    import { breakpoints } from "../../styles/breakpoints";
 
   let language: LanguageEnum;
 
   currentLanguageSelected.subscribe((value) => {
     language = value;
   });
+
+  let screenSize: number;
 </script>
 
+<svelte:window bind:innerWidth={screenSize} />
+
+
 <VerticalStack>
-  <!-- <Button />
-  <SignMessageButton />
-  {$signature}
-  <SignTypedMessageButton />
-  {$typedSignature}
-  <Button buttonText="GET API" handleClick={handleGetAPI} />
-  <Button buttonText="POST API" handleClick={handlePostAPI} />
-  <Button buttonText="PAY" handleClick={handlePay} />
-  {txHash} -->
-  <HorizontalStack>
+
+  {#if screenSize < breakpoints.large}
     {#if language === LanguageEnum.EN}
       <MenuButton buttonText="Parking" link="/demo/parking" icon={ParkingIcon} />
       <MenuButton buttonText="Fuel" link="/demo/fuel" icon={FuelIcon} />
@@ -38,7 +36,31 @@
       <MenuButton buttonText="打油" link="/demo/fuel" icon={FuelIcon} />
       <MenuButton buttonText="修理" link="/demo/repair" icon={RepairIcon} />
     {/if}
-  </HorizontalStack>
+  {:else}
+    <HorizontalStack>
+      {#if language === LanguageEnum.EN}
+        <MenuButton buttonText="Parking" link="/demo/parking" icon={ParkingIcon} />
+        <MenuButton buttonText="Fuel" link="/demo/fuel" icon={FuelIcon} />
+        <MenuButton buttonText="Repair" link="/demo/repair" icon={RepairIcon} />
+      {:else}
+        <MenuButton buttonText="停車場" link="/demo/parking" icon={ParkingIcon} />
+        <MenuButton buttonText="打油" link="/demo/fuel" icon={FuelIcon} />
+        <MenuButton buttonText="修理" link="/demo/repair" icon={RepairIcon} />
+      {/if}
+    </HorizontalStack>
+  {/if}
+
+
+  <!-- <Button />
+  <SignMessageButton />
+  {$signature}
+  <SignTypedMessageButton />
+  {$typedSignature}
+  <Button buttonText="GET API" handleClick={handleGetAPI} />
+  <Button buttonText="POST API" handleClick={handlePostAPI} />
+  <Button buttonText="PAY" handleClick={handlePay} />
+  {txHash} -->
+  
 </VerticalStack>
 
 <style>

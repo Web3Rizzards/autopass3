@@ -1,7 +1,9 @@
 <script lang="ts">
+  export let alignItems = "flex-start";
+  export let justifyContent = "center";
 </script>
 
-<horizontal-stack>
+<horizontal-stack style="--alignItems:{alignItems}; --justifyContent: {justifyContent};">
   <slot />
 </horizontal-stack>
 
@@ -10,8 +12,8 @@
     display: flex;
     flex-direction: row;
 
-    align-items: flex-start;
-    justify-content: center;
+    align-items: var(--alignItems);
+    justify-content: var(--justifyContent);
     
     width: 100%;
     padding: 1rem;

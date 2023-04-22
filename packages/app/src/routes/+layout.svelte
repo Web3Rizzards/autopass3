@@ -18,6 +18,8 @@
 
   import { getNetwork } from "@wagmi/core";
 
+  import BackgroundImage from "../public/images/background.svg";
+
   // Listen for PaymentReceived Events
   wagmiClient.subscribe((client) => {
     if (client) {
@@ -75,25 +77,56 @@
 <!-- Comment to Disable WEB3 (Requires VITE_WEB3MODAL_PROJECT_ID to work) -->
 <WalletConnect />
 
-<header>
-  <TopNavBar />
-</header>
+<div class="background">
+  <img src={BackgroundImage} alt="background"/>
+</div>
 
-<!-- Header -->
+<div class="content">
+  <header>
+    <TopNavBar />
+  </header>
+  
+  <!-- Header -->
+  
+  <main>
+    <MaxWidthContainer>
+      <slot />
+    </MaxWidthContainer>
+  </main>
+  
+  <footer />
+  
+  <BottomNav />
+</div>
 
-<main>
-  <MaxWidthContainer>
-    <slot />
-  </MaxWidthContainer>
-</main>
+<style lang="scss">
+  @import "../styles/breakpoints";
 
-<footer />
+  .background {
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
 
-<BottomNav />
+  .background img {
+    width: 150vw;
 
-<style>
+    @media screen and (min-width: $large) {
+      width: 100vw;
+    }
+  }
+  
+  .content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+  }
+
   :global(body) {
-    background-color: #fffa00;
+    /* background-color: #fffa00; */
+    overflow-x: hidden;
   }
 
   @font-face {

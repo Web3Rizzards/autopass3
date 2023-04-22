@@ -13,6 +13,7 @@
 
   import { currentLanguageSelected } from "../../../stores"
   import { LanguageEnum } from "../../../types";
+    import { breakpoints } from "../../../styles/breakpoints";
 
   let language: LanguageEnum;
 
@@ -150,7 +151,12 @@
     let _ordersKeys = Object.keys(_orders);
     $orders = _ordersKeys.map((key) => _orders[key]);
   }
+
+  let screenSize: number;
+
 </script>
+
+<svelte:window bind:innerWidth={screenSize} />
 
 <subheader>
   <img src={FuelIcon} alt={FuelIcon} />
@@ -160,7 +166,8 @@
     <title>打油</title>
   {/if}
 </subheader>
-<HorizontalStack>
+
+{#if screenSize < breakpoints.large}
   <VerticalStack>
     {#if language === LanguageEnum.EN}
       <title class="panel">Admin Panel</title>
@@ -186,7 +193,36 @@
     {/if}
     <Notifications />
   </VerticalStack>
-</HorizontalStack>
+{:else}
+  <HorizontalStack>
+    <VerticalStack>
+      {#if language === LanguageEnum.EN}
+        <title class="panel">Admin Panel</title>
+        <DisplayGroup lineInfos={data} />
+      {:else}
+        <title class="panel">管理面板</title>
+        <DisplayGroup lineInfos={translatedData} />
+      {/if}
+      <subtext>1USD = 1XDAI = 30.65 TWD</subtext>
+      {#if language === LanguageEnum.EN}
+        <Button buttonText="SIMULATE" {handleClick} />
+        <Button buttonText="SIMULATE PAYMENT" handleClick={handleClick2} />
+      {:else}
+        <Button buttonText="模仿" {handleClick} />
+        <Button buttonText="模仿支付" handleClick={handleClick2} />
+      {/if}
+    </VerticalStack>
+    <VerticalStack>
+      {#if language === LanguageEnum.EN}
+        <title class="panel">User Panel</title>
+      {:else}
+        <title class="panel">用戶面板</title>
+      {/if}
+      <Notifications />
+    </VerticalStack>
+  </HorizontalStack>
+{/if}
+
 
 <style>
   subheader {
