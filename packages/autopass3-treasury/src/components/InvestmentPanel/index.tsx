@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TextField from "../TextField";
 import {
   InvestmentPanelAction,
@@ -15,26 +15,67 @@ import {
 import dynamic from "next/dynamic";
 import useFetchUserInformation from "@/hooks/useFetchUserInformation";
 import { ethers } from "ethers";
+import useDeposit from "@/hooks/useDeposit";
+import { useAccount } from "wagmi";
+import { useRouter } from "next/router";
+import useWithdraw from "@/hooks/useWithdraw";
 
 const AreaChartWithoutSSR = dynamic(import("@/components/AreaChart"), {
   ssr: false,
 });
 
 const InvestmentPanel = () => {
+  const router = useRouter();
+  const { address } = useAccount();
   const { data } = useFetchUserInformation();
+  const { transactionHash: depositHash, isDepositing, deposit } = useDeposit();
+  const {
+    transactionHash: withdrawHash,
+    isWithdrawing,
+    withdraw,
+  } = useWithdraw();
 
   const [amount, setAmount] = useState<string>("");
-
-  const MAX_AMOUNT = "10000";
 
   const handleAmountChange = (text: string) => {
     setAmount(text);
   };
 
   const handleSetMax = () => {
-    console.log("here");
-    setAmount(MAX_AMOUNT);
+    setAmount(ethers.utils.formatEther(data.balance));
   };
+
+  const handleDeposit = () => {
+    if (amount) {
+      if (deposit) {
+        deposit({
+          recklesslySetUnpreparedArgs: [],
+          recklesslySetUnpreparedOverrides: {
+            from: address,
+            value: ethers.utils.parseEther(amount),
+          },
+        });
+      }
+    }
+  };
+
+  const handleWithdraw = () => {
+    if (withdraw) {
+      withdraw({
+        recklesslySetUnpreparedArgs: [],
+        recklesslySetUnpreparedOverrides: {
+          from: address,
+          value: 0,
+        },
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (depositHash || withdrawHash) {
+      router.reload();
+    }
+  }, [depositHash, withdrawHash]);
 
   return (
     <InvestmentPanelContainer>
@@ -63,10 +104,10 @@ const InvestmentPanel = () => {
           <InvestmentPanelText>
             Yield Earned: {ethers.utils.formatEther(data.yield)} xDAI
           </InvestmentPanelText>
-          <InvestmentPanelButton>
+          <InvestmentPanelButton type="button" onClick={handleDeposit}>
             <p>DEPOSIT</p>
           </InvestmentPanelButton>
-          <InvestmentPanelButton>
+          <InvestmentPanelButton type="button" onClick={handleWithdraw}>
             <p>WITHDRAW</p>
           </InvestmentPanelButton>
         </InvestmentPanelAction>

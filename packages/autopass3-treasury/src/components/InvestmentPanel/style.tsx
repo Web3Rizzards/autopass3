@@ -56,6 +56,7 @@ export const InvestmentPanelButton = styled.button`
     color: black;
     font-weight: 700;
     font-size: 16px;
+    padding: 0;
   }
 `;
 
@@ -90,5 +91,6 @@ export const InvestmentPanelMaxButton = styled.button`
     color: black;
     font-weight: 700;
     font-size: 16px;
+    padding: 0;
   }
 `;

@@ -36,11 +36,13 @@ const useFetchUserInformation = () => {
         ...stakingContract,
         functionName: "userInfo",
         args: [env_var.AUTOPASS_ADDRESS],
+        // args: [address],
       },
       {
         ...stakingContract,
         functionName: "pendingReward",
         args: [env_var.AUTOPASS_ADDRESS],
+        // args: [address],
       },
     ],
   });
@@ -62,23 +64,11 @@ const useFetchUserInformation = () => {
     if (_data) {
       const bal = await getBalance();
       setData({
-        stakedAmount: Number(_data[0][0]).toLocaleString("fullwide", {
+        stakedAmount: Number(_data[0][0])?.toLocaleString("fullwide", {
           useGrouping: false,
           maximumSignificantDigits: 10,
         }),
-        yield: Number(_data[1]).toLocaleString("fullwide", {
-          useGrouping: false,
-          maximumSignificantDigits: 10,
-        }),
-        balance: bal,
-      });
-
-      console.log("[useFetchUserInformation]", {
-        stakedAmount: Number(_data[0][0]).toLocaleString("fullwide", {
-          useGrouping: false,
-          maximumSignificantDigits: 10,
-        }),
-        yield: Number(_data[1]).toLocaleString("fullwide", {
+        yield: Number(_data[1])?.toLocaleString("fullwide", {
           useGrouping: false,
           maximumSignificantDigits: 10,
         }),

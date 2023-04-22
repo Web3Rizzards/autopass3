@@ -11,7 +11,6 @@ import { YieldData } from "@/data";
 import { AxisText } from "./style";
 
 const InvestmentAreaChart = () => {
-  console.log(YieldData);
   return (
     <ResponsiveContainer width="100%" height={300}>
       <AreaChart

@@ -42,5 +42,6 @@ export const AdminPanelSetButton = styled.button`
     color: black;
     font-weight: 700;
     font-size: 16px;
+    padding: 0;
   }
 `;
