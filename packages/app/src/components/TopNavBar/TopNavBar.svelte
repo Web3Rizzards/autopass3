@@ -9,6 +9,8 @@
   import LanguageSelector from "../LanguageSelector/LanguageSelector.svelte";
   import { currentLanguageSelected } from "../../stores";
   import { LanguageEnum } from "../../types";
+  import HorizontalStack from "../Stack/HorizontalStack.svelte";
+    import VerticalStack from "../Stack/VerticalStack.svelte";
 
   let screenSize: number;
   let modalOpen = false;
@@ -33,44 +35,69 @@
 
 <header-wrapper>
   {#if screenSize < breakpoints.large}
-    <header-logo>
-      <img src={AutopassLogo} alt="logo" width="100px" height="100px" />
-    </header-logo>
-  {/if}
-  {#if screenSize >= breakpoints.large}
-    <header-logo>
-      <img src={AutopassLogo} alt="logo" width="100px" height="100px" />
-      {#if language === LanguageEnum.EN}
-        <header-icon>AUTOPASS3</header-icon>
-      {:else}
-        <header-icon>車麻吉3</header-icon>
+    <VerticalStack>
+      <header-logo>
+        <img src={AutopassLogo} alt="logo" width="100px" height="100px" />
+        {#if language === LanguageEnum.EN}
+          <header-icon>AUTOPASS3</header-icon>
+        {:else}
+          <header-icon>車麻吉3</header-icon>
+        {/if}
+      </header-logo>
+
+      {#if _web3Modal}
+        <w3m-wrapper>
+          <w3m-network-switch style="" />
+          <w3m-core-button balance="hide" icon="hide" />
+        </w3m-wrapper>
       {/if}
-    </header-logo>
-    <header-tabs>
-      <header-item>
-        {#if language === LanguageEnum.EN}
-          <a href="/">Home</a>
-        {:else}
-          <a href="/">主頁</a>
-        {/if}
-      </header-item>
-      <header-item>
-        {#if language === LanguageEnum.EN}
-          <a href="/demo">Demo</a>
-        {:else}
-          <a href="/demo">示範</a>
-        {/if}
-      </header-item>
-    </header-tabs>
-    {#if _web3Modal}
-      <w3m-wrapper>
-        <w3m-network-switch style="" />
-        <w3m-core-button balance="hide" icon="hide" />
+
+      <HorizontalStack alignItems="center" justifyContent="center">
         <LanguageSelector />
-      </w3m-wrapper>
-    {/if}
+      </HorizontalStack>
+    </VerticalStack>
+
+   
   {/if}
+
+  {#if screenSize >= breakpoints.large}
+    <HorizontalStack alignItems="center" justifyContent="space-between">
+      <header-logo>
+        <img src={AutopassLogo} alt="logo" width="100px" height="100px" />
+        {#if language === LanguageEnum.EN}
+          <header-icon>AUTOPASS3</header-icon>
+        {:else}
+          <header-icon>車麻吉3</header-icon>
+        {/if}
+      </header-logo>
+      <header-tabs>
+        <header-item>
+          {#if language === LanguageEnum.EN}
+            <a href="/">Home</a>
+          {:else}
+            <a href="/">主頁</a>
+          {/if}
+        </header-item>
+        <header-item>
+          {#if language === LanguageEnum.EN}
+            <a href="/demo">Demo</a>
+          {:else}
+            <a href="/demo">示範</a>
+          {/if}
+        </header-item>
+      </header-tabs>
+      {#if _web3Modal}
+        <w3m-wrapper>
+          <w3m-network-switch style="" />
+          <w3m-core-button balance="hide" icon="hide" />
+          <LanguageSelector />
+        </w3m-wrapper>
+      {/if}
+    </HorizontalStack>
+  {/if}
+
 </header-wrapper>
+
 
 <style lang="scss">
   @import "../../styles/breakpoints";
@@ -93,9 +120,9 @@
     gap: auto;
     padding-left: 80px;
     padding-right: 80px;
-    height: 140px;
+    min-height: 140px;
 
-    @media screen and (max-width: $large) {
+    @media screen and (min-width: $large) {
       flex-direction: column;
       justify-content: center;
       align-items: center;
@@ -122,8 +149,15 @@
     font-family: "Poppins";
     font-style: normal;
     font-weight: 600;
-    font-size: 3rem;
-    line-height: 36px;
+    font-size: 1.5rem;
+    line-height: 20px;
+
+    white-space: nowrap;
+
+    @media screen and (min-width: $large) {
+      font-size: 3rem;
+      line-height: 36px;
+    }
   }
 
   header-tabs {

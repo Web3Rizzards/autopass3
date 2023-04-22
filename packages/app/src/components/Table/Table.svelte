@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { getCapitalizedString } from "../../helper";
+
   // Create a Table component
   export let data = [
     { chain: "Gnosis (Testnet)", faucet: "https://gnosisfaucet.com/" },
@@ -15,7 +17,7 @@
     <thead>
       <tr>
         {#each header as key}
-          <th>{key}</th>
+          <th>{getCapitalizedString(key)}</th>
         {/each}
       </tr>
     </thead>
