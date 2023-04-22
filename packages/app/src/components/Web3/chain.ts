@@ -53,7 +53,7 @@ export const gnosis = {
 } as const satisfies Chain;
 
 export const gnosis_testnet = {
-  id: 100,
+  id: 10200,
   name: "Gnosis (Chaido)",
   network: "gnosis_testnet",
   nativeCurrency: {

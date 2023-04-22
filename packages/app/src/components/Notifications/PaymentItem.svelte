@@ -3,7 +3,7 @@
   import FuelIcon from "../../public/images/fuel.svg";
   import { prepareWriteAutopassPaymentGateway } from "../../generated";
   import { formatEther, parseEther } from "ethers/lib/utils.js";
-  import { writeContract } from "@wagmi/core";
+  import { getNetwork, writeContract } from "@wagmi/core";
   import type { Order } from "../../types";
   import { BigNumber } from "ethers";
 
@@ -20,8 +20,11 @@
 
   async function handleClick() {
     console.log(orderId);
+    let { chain } = getNetwork();
     if (orderId) {
       let config = await prepareWriteAutopassPaymentGateway({
+        // @ts-ignore: chain.id should exist if deployment exist
+        chainId: chain.id,
         functionName: "createPayment",
         args: [orderId, "0x"],
         overrides: { value: parseEther(XDAItoPay) },
@@ -75,7 +78,7 @@
     border-radius: 16px;
 
     background-color: #ffffff;
-    
+
     /* add fade animation */
     animation: fadeInAnimation 0.5s ease-in-out;
   }
