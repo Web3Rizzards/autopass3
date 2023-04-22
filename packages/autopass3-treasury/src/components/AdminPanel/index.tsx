@@ -7,10 +7,11 @@ import {
   AdminPanelSetButton,
   AdminPanelTitle,
 } from "./style";
+import useFetchUserInformation from "@/hooks/useFetchUserInformation";
 
 const AdminPanel = () => {
   const currentPlatformFee = 1;
-
+  const { data } = useFetchUserInformation();
   const [platformFee, setPlatformFee] = useState<string>();
 
   const handlePlatformChange = (text: string) => {

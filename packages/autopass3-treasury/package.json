@@ -6,21 +6,27 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "typechain": "typechain --out-dir src/contracts/abi/types --target=ethers-v5 \"src/contracts/abi/*.json\""
   },
   "dependencies": {
+    "@rainbow-me/rainbowkit": "^0.12.9",
+    "@typechain/ethers-v5": "^10.2.0",
     "@types/node": "18.15.13",
     "@types/react": "18.0.38",
     "@types/react-dom": "18.0.11",
     "eslint": "8.39.0",
     "eslint-config-next": "13.3.1",
+    "ethers": "^5.7.2",
     "next": "13.3.1",
     "prettier": "^2.8.7",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "recharts": "^2.5.0",
     "styled-components": "^5.3.9",
-    "typescript": "5.0.4"
+    "typechain": "^8.1.1",
+    "typescript": "5.0.4",
+    "wagmi": "^0.12.12"
   },
   "devDependencies": {
     "@types/styled-components": "^5.1.26"

@@ -5,6 +5,38 @@ import GlobalStyle from "@/styles/GlobalStyles";
 import localFont from "next/font/local";
 import Layout from "@/components/Layout";
 
+import "@rainbow-me/rainbowkit/styles.css";
+
+import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
+import { configureChains, createClient, goerli, WagmiConfig } from "wagmi";
+import {
+  mainnet,
+  polygon,
+  optimism,
+  arbitrum,
+  gnosisChiado,
+} from "wagmi/chains";
+import { alchemyProvider } from "wagmi/providers/alchemy";
+import { publicProvider } from "wagmi/providers/public";
+import env_var from "@/utils/env_var";
+
+const { chains, provider } = configureChains(
+  [gnosisChiado, goerli],
+  [alchemyProvider({ apiKey: env_var.ALCHEMY_ID }), publicProvider()]
+);
+
+const { connectors } = getDefaultWallets({
+  appName: "Autopass3 - Treasury",
+  projectId: "Autopass3 - Treasury",
+  chains,
+});
+
+const wagmiClient = createClient({
+  autoConnect: true,
+  connectors,
+  provider,
+});
+
 const sfPro = localFont({
   src: [
     {
@@ -43,10 +75,14 @@ export default function App({ Component, pageProps }: AppProps) {
           font-family: ${sfPro.style.fontFamily} !important;
         }
       `}</style>
-        <Layout>
-          <GlobalStyle />
-          <Component {...pageProps} />
-        </Layout>
+      <WagmiConfig client={wagmiClient}>
+        <RainbowKitProvider chains={chains}>
+          <Layout>
+            <GlobalStyle />
+            <Component {...pageProps} />
+          </Layout>
+        </RainbowKitProvider>
+      </WagmiConfig>
     </>
   );
 }

@@ -13,15 +13,17 @@ import {
 } from "./style";
 
 import dynamic from "next/dynamic";
+import useFetchUserInformation from "@/hooks/useFetchUserInformation";
+import { ethers } from "ethers";
 
 const AreaChartWithoutSSR = dynamic(import("@/components/AreaChart"), {
   ssr: false,
 });
 
 const InvestmentPanel = () => {
+  const { data } = useFetchUserInformation();
+
   const [amount, setAmount] = useState<string>("");
-  const [deposited, setDeposited] = useState<string>("10000");
-  const [yieldEarned, setYieldEarned] = useState<string>("1100");
 
   const MAX_AMOUNT = "10000";
 
@@ -55,9 +57,12 @@ const InvestmentPanel = () => {
           </InvestmentPanelInputContainer>
 
           <InvestmentPanelText>
-            Current Deposited: {deposited}
+            Current Deposited: {ethers.utils.formatEther(data.stakedAmount)}{" "}
+            xDAI
           </InvestmentPanelText>
-          <InvestmentPanelText>Yield Earned: {deposited}</InvestmentPanelText>
+          <InvestmentPanelText>
+            Yield Earned: {ethers.utils.formatEther(data.yield)} xDAI
+          </InvestmentPanelText>
           <InvestmentPanelButton>
             <p>DEPOSIT</p>
           </InvestmentPanelButton>

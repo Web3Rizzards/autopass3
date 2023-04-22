@@ -5,6 +5,7 @@ import {
   NavigationIcon,
 } from "./style";
 import AutopassLogo from "@/assets/images/autopass.svg";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const Navigation = () => {
   return (
@@ -13,6 +14,8 @@ const Navigation = () => {
         <NavigationIcon>
           <Image src={AutopassLogo} alt="Autopass" fill />
         </NavigationIcon>
+
+        <ConnectButton />
       </NavigationContent>
     </NavigationContainer>
   );

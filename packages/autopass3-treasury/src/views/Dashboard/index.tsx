@@ -3,15 +3,21 @@ import { DashboardContainer, DashboardTitle } from "./style";
 import AdminPanel from "@/components/AdminPanel";
 import MerchantPanel from "@/components/MerchantPanel";
 import InvestmentPanel from "@/components/InvestmentPanel";
+import { useAccount } from "wagmi";
 
 const Dashboard = () => {
+  const { address } = useAccount();
   return (
     <DashboardContainer>
       <DashboardTitle>Autopass Treasury</DashboardTitle>
-      <TreasurySummary />
-      <AdminPanel />
-      <MerchantPanel />
-      <InvestmentPanel />
+      {address && (
+        <>
+          <TreasurySummary />
+          <AdminPanel />
+          <MerchantPanel />
+          <InvestmentPanel />
+        </>
+      )}
     </DashboardContainer>
   );
 };
