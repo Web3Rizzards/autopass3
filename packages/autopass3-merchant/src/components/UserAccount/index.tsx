@@ -13,8 +13,10 @@ import {
 import { getDisplayAddress } from "@/utils/helper";
 import { useWeb3Auth } from "@/context/Web3Auth";
 import { LOGIN_WEB3_AUTH, LOGOUT_WEB3_AUTH } from "@/context/actionType";
+import { useRouter } from "next/router";
 
 const UserAccount = () => {
+  const router = useRouter();
   const { state, dispatch } = useWeb3Auth();
   const [web3auth, setWeb3auth] = useState<Web3Auth | null>(null);
   const [provider, setProvider] = useState<SafeEventEmitterProvider | null>(
@@ -220,10 +222,17 @@ const UserAccount = () => {
     console.log(privateKey);
   };
 
+  const handleRedirect = () => {
+    router.push("/dashboard");
+  };
+
   return (
     <UserAccountContainer>
       {state.provider && state.address ? (
         <>
+          <UserAccountText onClick={handleRedirect}>
+            <p>Dashboard</p>
+          </UserAccountText>
           <UserAccountText>
             <p>{getDisplayAddress(address, 4)}</p>
           </UserAccountText>
