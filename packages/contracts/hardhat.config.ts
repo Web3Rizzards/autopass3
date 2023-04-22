@@ -24,7 +24,7 @@ task('new:wallet', 'Generate New Wallet', async (taskArgs, hre) => {
 });
 
 let ACCOUNT;
-let useMnemonic = true;
+let useMnemonic = false;
 
 // Setup Default Values
 let PRIVATE_KEY;
@@ -88,7 +88,7 @@ module.exports = {
       mining: {
         auto: true,
       },
-      accounts: ACCOUNT,
+      // accounts: ACCOUNT,
     },
     mainnet: {
       url: `https://mainnet.infura.io/v3/${process.env.INFURA_API_KEY}`,
@@ -196,6 +196,8 @@ module.exports = {
       chainId: 10200,
       accounts: ACCOUNT,
       saveDeployments: true,
+      gasPrice: 8,
+      maxPriorityFeePerGas: 7,
     },
     sepolia: {
       url: 'https://rpc.sepolia.org',
@@ -208,6 +210,7 @@ module.exports = {
       chainId: 18,
       accounts: ACCOUNT,
       saveDeployments: true,
+      gasPrice: 10000000000000,
     },
   },
   solidity: {

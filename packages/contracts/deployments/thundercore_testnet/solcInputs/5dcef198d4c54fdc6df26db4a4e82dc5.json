@@ -1,0 +1,41 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "contracts/AutopassPaymentGateway.sol": {
+      "content": "// SPDX-License-Identifier: GPL-3.0\r\npragma solidity ^0.8.12;\r\n\r\ncontract AutopassPaymentGateway {\r\n    // Increment every time a payment is received\r\n    uint256 public paymentId = 0;\r\n    address public owner;\r\n\r\n    event PaymentReceived(address indexed sender, uint256 amount, string orderId, uint256 paymentId, bytes data);\r\n\r\n    constructor() {\r\n        owner = msg.sender;\r\n    }\r\n\r\n    /**\r\n     * Create a payment\r\n     * @param orderId Order ID\r\n     * @param data Data\r\n     */\r\n    function createPayment(string memory orderId, bytes memory data) public payable {\r\n        paymentId++;\r\n        emit PaymentReceived(msg.sender, msg.value, orderId, paymentId, data);\r\n    }\r\n\r\n    /**\r\n     * Withdraw funds from the contract\r\n     * @param _to Recipient of the funds\r\n     */\r\n    function withdrawFunds(address payable _to) public {\r\n        require(msg.sender == owner, \"Only owner can withdraw funds\");\r\n        _to.transfer(address(this).balance);\r\n    }\r\n}\r\n"
+    },
+    "contracts/Contract.sol": {
+      "content": "// SPDX-License-Identifier: GPL-3.0\r\npragma solidity ^0.8.12;\r\n\r\ncontract Contract {\r\n    \r\n}\r\n"
+    },
+    "contracts/interfaces/IContract.sol": {
+      "content": "// SPDX-License-Identifier: GPL-3.0\r\npragma solidity ^0.8.12;\r\n\r\ninterface IContract {\r\n\r\n}"
+    }
+  },
+  "settings": {
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode",
+          "evm.deployedBytecode",
+          "evm.methodIdentifiers",
+          "metadata",
+          "devdoc",
+          "userdoc",
+          "storageLayout",
+          "evm.gasEstimates"
+        ],
+        "": [
+          "ast"
+        ]
+      }
+    },
+    "metadata": {
+      "useLiteralContent": true
+    }
+  }
+}
