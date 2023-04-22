@@ -10,6 +10,33 @@
   import BottomNav from "../components/BottomNav/BottomNav.svelte";
   import MaxWidthContainer from "../components/Container/MaxWidthContainer.svelte";
 
+  import { watchAutopassPaymentGatewayEvent } from "../generated";
+  import { wagmiClient } from "../stores";
+
+  // Listen for PaymentReceived Events
+  wagmiClient.subscribe((client) => {
+    if (client) {
+      console.log("Client is ready");
+
+      // Only Start Listening WHen Client is Ready
+
+      // This subscriber imitates a blockchain indexer
+      // In production, we will deploy a more robust indexer using The Graph
+      watchAutopassPaymentGatewayEvent(
+        { eventName: "PaymentReceived" },
+        (sender, amount, orderId, paymentId, data) => {
+          console.log({
+            sender,
+            amount: amount.toString(),
+            orderId,
+            paymentId: paymentId.toString(),
+            data,
+          });
+        }
+      );
+    }
+  });
+
   onMount(async () => {});
 </script>
 
