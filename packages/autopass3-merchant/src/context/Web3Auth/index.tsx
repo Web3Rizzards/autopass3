@@ -1,12 +1,13 @@
 import React from "react";
 import { PropsWithChildren } from "react";
 import { LOGIN_WEB3_AUTH, LOGOUT_WEB3_AUTH } from "../actionType";
+import { SafeEventEmitterProvider } from "@web3auth/base";
 
 type Login = {
   type: "LOGIN_WEB3_AUTH";
   address: string;
   chainId: string;
-  provider: any;
+  provider: SafeEventEmitterProvider | null;
 };
 
 type Logout = {
@@ -18,7 +19,7 @@ type Action = Login | Logout;
 type State = {
   address: string;
   chainId: string;
-  provider: any;
+  provider: SafeEventEmitterProvider | null;
 };
 
 type Dispatch = (action: Action) => void;
