@@ -1,21 +1,60 @@
 <script lang="ts">
+  import { getNetwork, prepareWriteContract, writeContract } from "@wagmi/core";
   import Button from "../../components/Button/Button.svelte";
   import SignMessageButton from "../../components/Button/SignMessageButton.svelte";
   import SignTypedMessageButton from "../../components/Button/SignTypedMessageButton.svelte";
   import DisplayLine from "../../components/Display/DisplayLine.svelte";
   import VerticalStack from "../../components/Stack/VerticalStack.svelte";
-  import { signature, typedSignature } from "../../stores";
+  import { ethereumClient, signature, typedSignature, wagmiClient, web3Modal } from "../../stores";
+  import type { Order } from "../../types";
+  import {
+    autopassPaymentGatewayABI,
+    autopassPaymentGatewayAddress,
+    prepareWriteAutopassPaymentGateway,
+  } from "../../generated";
+  import { ethers } from "ethers";
+  import { parseEther } from "ethers/lib/utils.js";
+  import MenuButton from "../../components/Button/MenuButton.svelte";
+  import HorizontalStack from "../../components/Stack/HorizontalStack.svelte";
 
-  let _signature: string = "";
-  let _typedSignature: string = "";
+  let txHash: string = "";
 
-  signature.subscribe((value) => {
-    _signature = value;
-  });
+  async function handleGetAPI() {
+    const response = await fetch("/api/order", {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+      },
+    });
 
-  typedSignature.subscribe((value) => {
-    _typedSignature = value;
-  });
+    console.log("GET API");
+    console.log(await response.json());
+  }
+  async function handlePostAPI() {
+    console.log("POST API");
+    let data: Order = {
+      item: "Apple",
+      amount: "1",
+    };
+    const response = await fetch("/api/order", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+
+    let total = await response.json();
+  }
+  async function handlePay() {
+    let config = await prepareWriteAutopassPaymentGateway({
+      functionName: "createPayment",
+      args: ["A", "0x"],
+      overrides: { value: parseEther("1") },
+    });
+    const data = await writeContract(config);
+    txHash = data.hash;
+  }
 </script>
 
 <VerticalStack>
@@ -24,7 +63,28 @@
   {$signature}
   <SignTypedMessageButton />
   {$typedSignature}
+  <Button buttonText="GET API" handleClick={handleGetAPI} />
+  <Button buttonText="POST API" handleClick={handlePostAPI} />
+  <Button buttonText="PAY" handleClick={handlePay} />
+  {txHash}
+  <HorizontalStack>
+    <MenuButton buttonText="Parking" link="/demo/parking" />
+    <MenuButton buttonText="Fuel" link="/demo/fuel" />
+    <MenuButton buttonText="Repair" link="/demo/repair" />
+  </HorizontalStack>
 </VerticalStack>
 
 <style>
+  title {
+    width: auto;
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 5rem;
+
+    display: flex;
+    align-items: center;
+
+    color: #000000;
+  }
 </style>
