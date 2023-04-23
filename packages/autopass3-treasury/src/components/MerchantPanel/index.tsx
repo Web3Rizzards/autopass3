@@ -11,9 +11,10 @@ import {
   MerchantPanelTitle,
 } from "./style";
 import { MerchantData } from "@/data";
-import usePayout from "@/hooks/usePayout";
+import usePayout, { arrayOfPayouts } from "@/hooks/usePayout";
 import { useAccount } from "wagmi";
 import { useRouter } from "next/router";
+import { ethers } from "ethers";
 
 const MerchantPanel = () => {
   const router = useRouter();
@@ -23,10 +24,11 @@ const MerchantPanel = () => {
 
   const handlePayout = async () => {
     if (payout) {
+      const amount = ethers.utils.parseEther("0.001");
       payout({
         recklesslySetUnpreparedArgs: [
-          ["0x0000000000000000000000000000000000000000"],
-          ["0"],
+          arrayOfPayouts,
+          [amount, amount, amount, amount, amount],
         ],
         recklesslySetUnpreparedOverrides: {
           from: address,
