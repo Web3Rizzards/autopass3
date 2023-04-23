@@ -9,6 +9,7 @@ const SubmitAddress = () => {
   const [companyName, setCompanyName] = useState<string>();
   const [companyRegistrationNo, setCompanyRegistrationNo] = useState<string>();
   const [companyAddress, setCompanyAddress] = useState<string>();
+  const [signature, setSignature] = useState<string>("");
 
   const handleName = (text: string) => {
     setCompanyName(text);
@@ -40,11 +41,20 @@ const SubmitAddress = () => {
       merchantId: companyRegistrationNo,
       wallet: state.address,
     } as const;
-
+    console.log("state.provider", state.provider);
     if (state.provider) {
-      const ethersProvider = new ethers.providers.Web3Provider(state.provider);
-      const signer = ethersProvider.getSigner();
-      const signature = await signer._signTypedData(domain, types, value);
+      try {
+        // const ethersProvider = new ethers.providers.Web3Provider(
+        //   state.provider
+        // );
+        const signer = (
+          state.provider as ethers.providers.Web3Provider
+        ).getSigner();
+        const _signature = await signer._signTypedData(domain, types, value);
+        setSignature(_signature);
+      } catch (error) {
+        console.log("[Error from binding]", error);
+      }
     }
   };
 
@@ -64,6 +74,11 @@ const SubmitAddress = () => {
       <SubmitAddressButton onClick={handleSubmission}>
         <p>Submit Address to Autopass</p>
       </SubmitAddressButton>
+      {signature && (
+        <p style={{ width: "300px", whiteSpace: "nowrap" }}>
+          You have signed! {signature}
+        </p>
+      )}
     </SubmitAddressContainer>
   );
 };

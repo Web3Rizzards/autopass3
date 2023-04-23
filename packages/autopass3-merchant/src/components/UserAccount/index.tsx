@@ -14,6 +14,7 @@ import { getDisplayAddress } from "@/utils/helper";
 import { useWeb3Auth } from "@/context/Web3Auth";
 import { LOGIN_WEB3_AUTH, LOGOUT_WEB3_AUTH } from "@/context/actionType";
 import { useRouter } from "next/router";
+import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 
 const UserAccount = () => {
   const router = useRouter();
@@ -73,6 +74,31 @@ const UserAccount = () => {
         // it will add/update  the metamask adapter in to web3auth class
         web3auth.configureAdapter(metamaskAdapter);
 
+        const openloginAdapter = new OpenloginAdapter({
+          loginSettings: {
+            mfaLevel: "default",
+          },
+          adapterSettings: {
+            uxMode: "popup",
+            whiteLabel: {
+              name: "Autopass3 - Merchant",
+              logoLight: "https://web3auth.io/images/w3a-L-Favicon-1.svg",
+              logoDark: "https://web3auth.io/images/w3a-D-Favicon-1.svg",
+              defaultLanguage: "en",
+              dark: true, // whether to enable dark mode. defaultValue: false
+            },
+            loginConfig: {
+              google: {
+                name: "Autopass3 - Merchant",
+                verifier: "YOUR-VERIFIER-NAME-ON-WEB3AUTH-DASHBOARD",
+                typeOfLogin: "google",
+                clientId: "YOUR-CLIENTID-FROM-GOOGLE",
+              },
+            },
+          },
+        });
+        web3auth.configureAdapter(openloginAdapter);
+
         setWeb3auth(web3auth);
 
         await web3auth.initModal();
@@ -108,6 +134,7 @@ const UserAccount = () => {
         address,
         provider: web3authProvider,
         chainId: "0x5",
+        magicKey: "",
       });
     }
   };

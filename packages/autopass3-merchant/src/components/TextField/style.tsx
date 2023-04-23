@@ -7,7 +7,7 @@ export const TextFieldContainer = styled.div`
   width: 92vw;
   margin: 10px 0;
   @media screen and (min-width: ${theme.breakpoints.large}) {
-    width: 700px;
+    width: 100%;
   }
 `;
 

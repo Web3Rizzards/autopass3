@@ -2,12 +2,14 @@ import React from "react";
 import { PropsWithChildren } from "react";
 import { LOGIN_WEB3_AUTH, LOGOUT_WEB3_AUTH } from "../actionType";
 import { SafeEventEmitterProvider } from "@web3auth/base";
+import { ethers } from "ethers";
 
 type Login = {
   type: "LOGIN_WEB3_AUTH";
   address: string;
   chainId: string;
-  provider: SafeEventEmitterProvider | null;
+  provider: SafeEventEmitterProvider | ethers.providers.Web3Provider | null;
+  magicKey: string;
 };
 
 type Logout = {
@@ -19,7 +21,8 @@ type Action = Login | Logout;
 type State = {
   address: string;
   chainId: string;
-  provider: SafeEventEmitterProvider | null;
+  provider: SafeEventEmitterProvider | ethers.providers.Web3Provider | null;
+  magicKey: string;
 };
 
 type Dispatch = (action: Action) => void;
@@ -28,6 +31,7 @@ const initialState: State = {
   address: "",
   chainId: "",
   provider: null,
+  magicKey: "",
 } as const;
 
 const Web3AuthContext = React.createContext<

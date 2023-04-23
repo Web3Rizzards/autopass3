@@ -1,11 +1,11 @@
 import Image from "next/image";
-import UserAccount from "../UserAccount";
 import {
   NavigationContainer,
   NavigationContent,
   NavigationIcon,
 } from "./style";
 import AutopassLogo from "@/assets/images/autopass.svg";
+import MagicUserAccount from "../MagicUserAccount";
 
 const Navigation = () => {
   return (
@@ -14,7 +14,7 @@ const Navigation = () => {
         <NavigationIcon>
           <Image src={AutopassLogo} alt="Autopass" fill />
         </NavigationIcon>
-        <UserAccount />
+        <MagicUserAccount />
       </NavigationContent>
     </NavigationContainer>
   );

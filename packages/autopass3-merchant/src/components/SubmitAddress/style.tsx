@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const SubmitAddressContainer = styled.div`
   position: relative;
+  width: 700px;
 `;
 
 export const SubmitAddressButton = styled.div`
@@ -20,5 +21,6 @@ export const SubmitAddressButton = styled.div`
     color: black;
     font-weight: 700;
     font-size: 16px;
+    padding: 0;
   }
 `;
