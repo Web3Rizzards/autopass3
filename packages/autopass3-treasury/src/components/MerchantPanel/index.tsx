@@ -53,8 +53,8 @@ const MerchantPanel = () => {
       <MerchantPanelData>
         <MerchantPanelDataHeader>
           <p style={{ width: "10%" }}>Merchant ID</p>
-          <p style={{ width: "35%" }}>Name</p>
-          <p style={{ width: "20%" }}>Address</p>
+          <p style={{ width: "15%" }}>Name</p>
+          <p style={{ width: "40%" }}>Address</p>
           <p style={{ width: "20%" }}>Revenue (xDAI)</p>
           <p style={{ width: "15%" }}>Due Date</p>
         </MerchantPanelDataHeader>
@@ -63,8 +63,8 @@ const MerchantPanel = () => {
             <>
               <MerchantPanelDataRow>
                 <p style={{ width: "10%" }}>{entry.id}</p>
-                <p style={{ width: "35%" }}>{entry.name}</p>
-                <p style={{ width: "20%" }}>{entry.address}</p>
+                <p style={{ width: "15%" }}>{entry.name}</p>
+                <p style={{ width: "40%" }}>{entry.address}</p>
                 <p style={{ width: "20%" }}>{entry.revenue}</p>
                 <p style={{ width: "15%" }}>{entry.dueDate}</p>
               </MerchantPanelDataRow>

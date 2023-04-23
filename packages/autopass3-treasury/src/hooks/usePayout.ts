@@ -1,13 +1,14 @@
-import { paymentSplitterContract } from "@/contracts ";
+import { paymentSplitterContract } from "@/contracts";
 import { processErrorMessage } from "@/utils/errorMessage";
 import { IOverrideArgs } from "@/utils/interfaces";
 import { ethers } from "ethers";
 import { useEffect, useState } from "react";
-import { useContract, useContractWrite, useProvider } from "wagmi";
+import { useContract, useContractWrite, useNetwork, useProvider } from "wagmi";
 
 const INSUFFICIENT_FUNDS_ERROR_CODE = "INSUFFICIENT_FUNDS";
 
 const usePayout = () => {
+  const { chain } = useNetwork();
   const provider = useProvider();
   const contract = useContract({
     ...paymentSplitterContract,
@@ -59,9 +60,9 @@ const usePayout = () => {
     reset: resetPayout,
   } = useContractWrite({
     mode: "recklesslyUnprepared",
-    ...paymentSplitterContract,
+    ...paymentSplitterContract(chain?.id || 5),
     functionName: "pay",
-    chainId: 5,
+    chainId: chain?.id,
   });
 
   const processTransaction = async () => {

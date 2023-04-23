@@ -1,13 +1,14 @@
-import { stakingContract } from "@/contracts ";
+import { stakingContract } from "@/contracts";
 import { processErrorMessage } from "@/utils/errorMessage";
 import { IOverrideArgs } from "@/utils/interfaces";
 import { ethers } from "ethers";
 import { useEffect, useState } from "react";
-import { useContract, useContractWrite, useProvider } from "wagmi";
+import { useContract, useContractWrite, useNetwork, useProvider } from "wagmi";
 
 const INSUFFICIENT_FUNDS_ERROR_CODE = "INSUFFICIENT_FUNDS";
 
 const useWithdraw = () => {
+  const { chain } = useNetwork();
   const provider = useProvider();
   const contract = useContract({
     ...stakingContract,
@@ -55,9 +56,9 @@ const useWithdraw = () => {
     reset: resetWithdraw,
   } = useContractWrite({
     mode: "recklesslyUnprepared",
-    ...stakingContract,
+    ...stakingContract(chain?.id || 5),
     functionName: "deposit",
-    chainId: 5,
+    chainId: chain?.id,
   });
 
   const processTransaction = async () => {

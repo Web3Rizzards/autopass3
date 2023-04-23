@@ -2,8 +2,9 @@ import env_var from "@/utils/env_var";
 import { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import { useAccount, useContractReads } from "wagmi";
-import { stakingContract } from "@/contracts ";
+import { stakingContract } from "@/contracts";
 import { getProvider } from "@wagmi/core";
+import { useNetwork } from "wagmi";
 // import ChainToAddressMapping, {
 //   ContractName,
 // } from "@/utils/chainToAdressMapping";
@@ -16,6 +17,7 @@ interface IData {
 }
 
 const useFetchUserInformation = () => {
+  const { chain } = useNetwork();
   const { address } = useAccount();
   const provider = getProvider();
   const [data, setData] = useState<IData>({
@@ -33,16 +35,18 @@ const useFetchUserInformation = () => {
   } = useContractReads({
     contracts: [
       {
-        ...stakingContract,
+        ...stakingContract(chain?.id || 5),
         functionName: "userInfo",
         args: [env_var.AUTOPASS_ADDRESS],
         // args: [address],
+        chainId: chain?.id,
       },
       {
-        ...stakingContract,
+        ...stakingContract(chain?.id || 5),
         functionName: "pendingReward",
         args: [env_var.AUTOPASS_ADDRESS],
         // args: [address],
+        chainId: chain?.id,
       },
     ],
   });
