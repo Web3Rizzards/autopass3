@@ -32,7 +32,7 @@ const MerchantPanel = () => {
         ],
         recklesslySetUnpreparedOverrides: {
           from: address,
-          value: 0,
+          value: ethers.utils.parseEther("0.005"),
         },
       });
     }
